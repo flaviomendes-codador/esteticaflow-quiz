@@ -743,7 +743,7 @@ body {
   <div class="loading" id="loadingScreen">
     <div class="spinner"></div>
     <h3>Calculando o potencial da sua clínica...</h3>
-    <p>Cruzando seus dados com benchmarks reais do setor de estética</p>
+    <p>Cruzando seus dados com médias reais de clínicas no Brasil</p>
     <div class="load-steps">
       <div class="load-step" id="ls1"><div class="dot"></div> Analisando volume e tempo de resposta</div>
       <div class="load-step" id="ls2"><div class="dot"></div> Calculando receita perdida e impacto em recorrência</div>
@@ -768,7 +768,7 @@ body {
   <div class="step" id="step2">
     <div class="step-dots-wrap" id="dots2"></div>
     <h2>Qual é o foco principal da sua clínica hoje?</h2>
-    <p class="sub">Cada especialidade tem benchmarks diferentes de conversão. Isso afina o cálculo.</p>
+    <p class="sub">Cada especialidade perde leads de um jeito diferente. Isso torna o seu diagnóstico mais preciso.</p>
     <div class="options">
       <div class="option" onclick="selAuto('nicho','harmonizacao',this,3)">
         <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z"/><path d="M19.5 3l-.94 2.69-2.69.94 2.69.94.94 2.69.94-2.69 2.69-.94-2.69-.94L19.5 3Z"/></svg></div>
@@ -977,7 +977,7 @@ body {
       <div class="fin-card loss">
         <span class="fin-label">Deixando na mesa</span>
         <div class="fin-val" id="lossVal"></div>
-        <div class="fin-sub">receita que some todo mês em leads não convertidos</div>
+        <div class="fin-sub">em pacientes que chegaram, perguntaram e foram embora para a concorrência este mês</div>
       </div>
       <div class="fin-card gain">
         <span class="fin-label">Potencial mensal</span>
@@ -990,7 +990,7 @@ body {
         <div class="fin-sub">considerando retorno médio de 2,4x/ano por paciente de estética</div>
       </div>
       <div class="fin-card team">
-        <span class="fin-label">Equipe equivalente</span>
+        <span class="fin-label">Funcionários que você teria que contratar</span>
         <div class="fin-val" id="teamVal"></div>
         <div class="fin-sub" id="teamSub"></div>
       </div>
@@ -1026,7 +1026,7 @@ body {
       </p>
       <div class="offer-bullets">
         <div class="offer-bullet"><span class="offer-bullet-icon">—</span> Atendente IA que responde, qualifica e agenda automaticamente — 24h, 7 dias por semana</div>
-        <div class="offer-bullet"><span class="offer-bullet-icon">—</span> Lead scoring: você sabe quem está pronto para comprar antes de abrir o WhatsApp</div>
+        <div class="offer-bullet"><span class="offer-bullet-icon">—</span> Você vê quem está pronto para fechar antes mesmo de abrir o WhatsApp — sem precisar adivinhar</div>
         <div class="offer-bullet"><span class="offer-bullet-icon">—</span> Sequências de follow-up que reativam leads frios sem esforço manual</div>
         <div class="offer-bullet"><span class="offer-bullet-icon">—</span> Dashboard completo: cada lead, canal, conversão e real rastreados em tempo real</div>
         <div class="offer-bullet"><span class="offer-bullet-icon">—</span> Confirmação automática de consultas e reposição de cancelamentos</div>
@@ -1162,7 +1162,7 @@ body {
     </div>
 
     <div class="footer">
-      Diagnóstico gerado com base em benchmarks do setor de estética no Brasil.<br>
+      Diagnóstico gerado com base em dados médios do setor de estética no Brasil.<br>
       Fontes: ABF, Beauty Fair, CBME, RevenueHero 2024/2025.<br>
       Os valores são estimativas com base nos dados informados e nas médias do setor.
     </div>
@@ -1330,7 +1330,7 @@ function buildResult() {
   document.getElementById('resultTitle').innerHTML =
     `<em>${A.name}</em>, aqui está o diagnóstico real da sua ${icp.label}`;
   document.getElementById('resultSub').textContent =
-    'Cruzamos seus dados com benchmarks reais do setor de estética. O que você vai ver abaixo não é estimativa genérica — é calculado com o seu volume, seu ticket e o seu tempo de resposta.';
+    'Calculamos com base nos dados que você informou — volume de leads, ticket médio e tempo de resposta. O que você vai ver abaixo é o dinheiro real que está saindo pela porta da sua clínica todo mês.';
   document.getElementById('produtoBadge').textContent = icp.produto;
 
   document.getElementById('lossVal').textContent       = fmt(receitaPerdida) + '/mês';
@@ -1338,10 +1338,10 @@ function buildResult() {
   document.getElementById('recurrenceVal').textContent = fmt(potencial12m);
   document.getElementById('teamVal').textContent       = funcs + (funcs === 1 ? ' funcionário' : ' funcionários');
   document.getElementById('teamSub').textContent       =
-    `= ${fmt(custoEquipe)}/mês em custo fixo para cobrir o volume que a automação resolve sozinha`;
+    `só para tentar dar conta dos leads — ${fmt(custoEquipe)}/mês em salário + encargos, sem garantia de resultado`;
 
   document.getElementById('finDesc').innerHTML =
-    `Com <strong>${leadsPerdidos} leads/mês</strong> não convertidos, e conversão atual de ~${Math.round(icp.convBase*100)}% (benchmark ${icp.label}), isso representa <strong>${clientesPerdidos} pacientes que não fecharam × ticket de ${fmt(ticket)} = ${fmt(receitaPerdida)}/mês que ficou na mesa</strong>. Com a operação otimizada, a conversão sobe para ~${Math.round(icp.convSist*100)}%, gerando <strong>+${clientesNovos} pacientes extras/mês</strong>. Em 12 meses (retorno médio 2,4x/paciente), o impacto acumulado chega a <strong>${fmt(potencial12m)}</strong>.`;
+    `Dos <strong>${leads} leads que chegam por mês</strong> na sua clínica, <strong>${leadsPerdidos} somem sem virar paciente</strong> — é o que acontece quando o atendimento demora ou não existe fora do horário comercial. Com apenas ~${Math.round(icp.convBase*100)}% fechando hoje, isso representa <strong>${clientesPerdidos} pacientes perdidos × ${fmt(ticket)} de ticket = ${fmt(receitaPerdida)} que você deixa na mesa todo mês</strong>. Com o processo certo, essa taxa sobe para ~${Math.round(icp.convSist*100)}% — gerando <strong>+${clientesNovos} pacientes extras por mês</strong>. Em 12 meses, o impacto acumulado na sua clínica chega a <strong>${fmt(potencial12m)}</strong>.`;
 
   document.getElementById('goalsList').innerHTML = A.objetivos.length > 0
     ? A.objetivos.map(o => `<div class="goal-item"><span class="goal-check">—</span>${objLabel[o]}</div>`).join('')
