@@ -7,6 +7,54 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  // ── FunnelMetrics — Configuração Supabase ──────────────────────────────────
+  const SUPABASE_URL  = 'https://jmrcvohneftajtupesmb.supabase.co';
+  const SUPABASE_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImptcmN2b2huZWZ0YWp0dXBlc21iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5MzY1NjQsImV4cCI6MjA4OTUxMjU2NH0.E6bWfQxFXn5ovYjt-1VpNFfTYIlNZqzFBEB3bCeuh0E';
+  const TENANT_ID     = 'f1a75000-cafe-4000-8000-ca1c1ac00001';
+  const CALENDLY_URL  = 'https://calendly.com/SEU-LINK-AQUI';
+  // ──────────────────────────────────────────────────────────────────────────
+
+  const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  function getUTMs() {
+    const p = new URLSearchParams(window.location.search);
+    return {
+      utm_source:   p.get('utm_source')   || null,
+      utm_medium:   p.get('utm_medium')   || null,
+      utm_campaign: p.get('utm_campaign') || null,
+      utm_content:  p.get('utm_content')  || null,
+      utm_term:     p.get('utm_term')     || null,
+    };
+  }
+
+  async function saveLeadToSupabase(phone) {
+    const utms = getUTMs();
+    const respScore = { agora: 20, '30min': 35, '2h': 50, '6h': 65, dia: 80, '2dias': 95 };
+    const form_score = respScore[A.resposta] || 50;
+
+    const { error } = await _supabase.from('leads').insert({
+      tenant_id:    TENANT_ID,
+      name:         A.name || 'Anônimo',
+      whatsapp:     phone,
+      form_score:   form_score,
+      form_answers: {
+        nicho:     A.nicho,
+        leads:     A.leads,
+        ticket:    A.ticket,
+        resposta:  A.resposta,
+        objetivos: A.objetivos,
+      },
+      lgpd_consent: true,
+      lgpd_consent_at: new Date().toISOString(),
+      ...utms,
+    });
+
+    if (error) console.error('[FunnelMetrics] Erro ao salvar lead:', error.message);
+    return !error;
+  }
+</script>
 
 <!--
   ╔══════════════════════════════════════════════════════════════════╗
@@ -1082,9 +1130,27 @@ body {
       <h3>Quer transformar esse potencial em <em>faturamento real</em>?</h3>
       <p id="ctaSub"></p>
 
-      <a href="https://calendly.com/SEU-LINK-AQUI" id="btnCTA" class="btn-cta" target="_blank">
-        Garantir minha vaga no diagnóstico gratuito →
-      </a>
+      <div id="ctaFormWrap">
+        <div style="display:flex;flex-direction:column;gap:10px;max-width:480px;margin:0 auto;">
+          <input
+            type="tel"
+            id="ctaPhone"
+            placeholder="Seu WhatsApp: +55 (11) 99999-9999"
+            style="padding:16px 20px;border-radius:10px;border:1.5px solid rgba(168,136,42,0.4);background:rgba(168,136,42,0.05);color:#3b2e1a;font-size:15px;font-family:inherit;outline:none;width:100%;"
+            onfocus="this.style.borderColor='#C9A84C'"
+            onblur="this.style.borderColor='rgba(168,136,42,0.4)'"
+          >
+          <button id="btnCTA" class="btn-cta" onclick="captureAndRedirect()">
+            Garantir minha vaga no diagnóstico gratuito →
+          </button>
+        </div>
+        <p style="font-size:11px;color:#9b8e82;margin-top:10px;text-align:center;">
+          Enviamos o link da call no seu WhatsApp em até 2 horas. Sem spam.
+        </p>
+      </div>
+      <div id="ctaSuccess" style="display:none;text-align:center;padding:16px 0;">
+        <p style="color:#7a5c1e;font-weight:600;font-size:15px;">✓ Vaga reservada! Link chegará no seu WhatsApp em até 2 horas.</p>
+      </div>
 
       <div class="guarantee-grid">
         <div class="guarantee-item"><span class="g-icon">◇</span>Call de 20 minutos</div>
@@ -1142,6 +1208,26 @@ const objLabel = {
   previsibilidade: 'Ter previsibilidade e controle total do faturamento',
   noshow:          'Lotar a agenda e reduzir no-show'
 };
+
+async function captureAndRedirect() {
+  const phone = document.getElementById('ctaPhone').value.trim();
+  if (!phone || phone.length < 8) {
+    document.getElementById('ctaPhone').focus();
+    document.getElementById('ctaPhone').style.borderColor = '#e53e3e';
+    return;
+  }
+
+  const btn = document.getElementById('btnCTA');
+  btn.disabled = true;
+  btn.textContent = 'Salvando...';
+
+  await saveLeadToSupabase(phone);
+
+  document.getElementById('ctaFormWrap').style.display = 'none';
+  document.getElementById('ctaSuccess').style.display = 'block';
+
+  setTimeout(() => { window.open(CALENDLY_URL, '_blank'); }, 800);
+}
 
 function renderDots(s) {
   for (let i = 1; i <= TOTAL; i++) {
