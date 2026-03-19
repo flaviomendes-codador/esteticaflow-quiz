@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calcule quanto sua clínica pode faturar a mais</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+
+<!--
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║  DESIGN SYSTEM "ÉCLAT — IVOIRE & OR"  v3.0  (light luxury)    ║
+  ║  EstéticaFlow Quiz  ·  Padrão para todos os quizzes            ║
+  ║                                                                  ║
+  ║  PALETA — FUNDO CLARO                                           ║
+  ║  --bg:          #faf7f2   ivoire quente — fundo                 ║
+  ║  --bg-2:        #f2ede4   superfície elevada                    ║
+  ║  --gold:        #a8882a   ouro 18k (aprofundado para contraste) ║
+  ║  --gold-lt:     #c9a84c   ouro médio — hover / destaque        ║
+  ║  --ink:         #1a1410   tinta — texto principal              ║
+  ║  --ink-2:       #5a4e40   tinta média — texto secundário       ║
+  ║  --ink-3:       #8a7e72   tinta suave — muted / captions       ║
+  ║                                                                  ║
+  ║  GRADIENTE PADRÃO                                               ║
+  ║  135deg, #a8882a → #c9a84c   (ouro escuro → ouro médio)       ║
+  ║                                                                  ║
+  ║  TIPOGRAFIA                                                      ║
+  ║  Display:   Playfair Display  400 / 600 / italic               ║
+  ║  Interface: Inter             300 / 400 / 500 / 600            ║
+  ║                                                                  ║
+  ║  BORDERS                                                         ║
+  ║  Gold sutil:  rgba(168,136,42,0.20)                             ║
+  ║  Gold ativo:  rgba(168,136,42,0.52)                             ║
+  ║  Neutro:      rgba(26,20,16,0.09)                               ║
+  ║                                                                  ║
+  ║  RAIOS                                                           ║
+  ║  cards: 12px  ·  botões: 3px  ·  inputs: 10px                  ║
+  ╚══════════════════════════════════════════════════════════════════╝
+-->
+
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  /* ÉCLAT — IVOIRE & OR  v3.0  (light luxury) */
+  --bg:        #faf7f2;          /* ivoire quente — fundo */
+  --bg-2:      #f2ede4;          /* superfície elevada */
+  --bg-3:      #e8e2d6;          /* card surface */
+  --gold:      #a8882a;          /* ouro 18k — legível em fundo claro */
+  --gold-lt:   #c9a84c;          /* ouro médio — hover / destaque */
+  --gold-dim:  rgba(168,136,42,0.07);
+  --grad:      linear-gradient(135deg, #a8882a 0%, #c9a84c 100%);
+  --ink:       #1a1410;          /* tinta — texto principal */
+  --ink-2:     #5a4e40;          /* tinta média — texto secundário */
+  --ink-3:     #8a7e72;          /* tinta suave — texto muted */
+  --b-gold:    rgba(168,136,42,0.20);
+  --b-gold-on: rgba(168,136,42,0.52);
+  --b-neu:     rgba(26,20,16,0.09);
+  --surface:   rgba(26,20,16,0.03);
+  /* aliases para compatibilidade */
+  --noir:      var(--bg);
+  --ivory:     var(--ink);
+  --ivory-2:   var(--ink-2);
+  --ivory-3:   var(--ink-3);
+  --red:   #d93050;
+  --green: #0d8f64;
+  --blue:  #5254c8;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 300;
+  background: var(--bg);
+  background-image:
+    radial-gradient(ellipse 80% 35% at 50% 0%, rgba(168,136,42,0.05) 0%, transparent 70%);
+  color: var(--ink);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: 0.01em;
+}
+
+/* ── PROGRESS ── */
+.progress-bar {
+  position: fixed; top: 0; left: 0; height: 2px;
+  background: var(--grad);
+  transition: width 0.7s cubic-bezier(0.4,0,0.2,1);
+  z-index: 100;
+}
+
+.container { max-width: 620px; margin: 0 auto; padding: 80px 20px 72px; }
+
+/* ════════════════════════════════
+   INTRO
+════════════════════════════════ */
+.intro { text-align: center; }
+
+.badge {
+  display: inline-block;
+  border: 1px solid var(--b-gold);
+  color: var(--gold);
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 3px; text-transform: uppercase;
+  padding: 7px 22px; border-radius: 2px; margin-bottom: 40px;
+}
+
+.intro h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(26px, 5.5vw, 48px);
+  font-weight: 400; line-height: 1.2;
+  margin-bottom: 28px; color: var(--ivory);
+  letter-spacing: -0.3px;
+}
+
+.highlight-mais {
+  font-style: italic;
+  color: var(--gold-lt);
+  position: relative; display: inline;
+}
+.highlight-mais::after {
+  content: '';
+  position: absolute; left: 0; bottom: 0px;
+  width: 100%; height: 1px;
+  background: var(--grad);
+}
+
+.intro .hook {
+  font-size: 15px; color: var(--ivory-2); line-height: 1.9;
+  max-width: 490px; margin: 0 auto 12px;
+}
+.intro .hook strong { color: var(--ink); font-weight: 500; }
+.intro .hook em { font-style: normal; color: var(--gold); font-weight: 500; }
+
+/* ── STATS ── */
+.stat-row {
+  display: flex;
+  margin: 40px 0;
+  border: 1px solid var(--b-gold);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.stat {
+  text-align: center; padding: 22px 16px; flex: 1;
+  border-right: 1px solid var(--b-gold);
+}
+.stat:last-child { border-right: none; }
+.stat .val {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px; font-weight: 600;
+  color: var(--gold); line-height: 1; margin-bottom: 7px;
+}
+.stat .lbl { font-size: 11px; color: var(--ivory-3); max-width: 90px; line-height: 1.5; margin: 0 auto; letter-spacing: 0.02em; }
+
+/* ── BTN START ── */
+.btn-start {
+  display: inline-block; padding: 17px 52px;
+  background: var(--grad);
+  color: var(--noir); font-size: 14px; font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.8px; text-transform: uppercase;
+  border: none; border-radius: 3px; cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+  margin-top: 12px;
+  box-shadow: 0 4px 32px rgba(201,168,76,0.25);
+}
+.btn-start:hover { transform: translateY(-2px); box-shadow: 0 10px 48px rgba(201,168,76,0.4); }
+
+.trust-row { margin-top: 18px; font-size: 11px; color: var(--ivory-3); letter-spacing: 0.8px; text-transform: uppercase; }
+
+/* ════════════════════════════════
+   STEPS
+════════════════════════════════ */
+.step { display: none; animation: fadeUp 0.4s cubic-bezier(0.4,0,0.2,1); }
+.step.active { display: block; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.step-dots-wrap { display: flex; gap: 5px; margin-bottom: 36px; }
+.step-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: rgba(26,20,16,0.12);
+  transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+.step-dot.active { background: var(--gold); width: 22px; border-radius: 2px; }
+.step-dot.done { background: rgba(168,136,42,0.32); }
+
+.step h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(18px, 3.8vw, 25px);
+  font-weight: 400; line-height: 1.38;
+  margin-bottom: 10px; color: var(--ink); letter-spacing: -0.1px;
+}
+.step .sub {
+  font-size: 13px; color: var(--ink-2);
+  margin-bottom: 28px; line-height: 1.75;
+}
+.step .sub strong { color: var(--gold); font-weight: 500; }
+
+/* ── OPTIONS ── */
+.options { display: flex; flex-direction: column; gap: 7px; }
+
+.option {
+  display: flex; align-items: center; gap: 14px; padding: 13px 16px;
+  min-height: 56px;
+  background: #ffffff;
+  border: 1px solid var(--b-neu);
+  border-radius: 10px; cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
+  user-select: none;
+}
+.option:hover {
+  background: rgba(168,136,42,0.04);
+  border-color: var(--b-gold);
+  transform: translateX(3px);
+}
+.option.selected { background: rgba(168,136,42,0.06); border-color: var(--b-gold-on); }
+.option.selecting { background: rgba(168,136,42,0.12); border-color: var(--gold); transform: scale(0.99); }
+
+.option-icon {
+  width: 38px; height: 38px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(26,20,16,0.04);
+  border-radius: 8px; flex-shrink: 0;
+  color: var(--gold);
+  transition: background 0.2s;
+}
+.option.selected .option-icon { background: rgba(168,136,42,0.10); }
+
+.option-text { flex: 1; }
+.option-text strong { display: block; font-size: 13.5px; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
+.option-text span { font-size: 11.5px; color: var(--ink-3); line-height: 1.4; }
+
+.option-check {
+  width: 18px; height: 18px; border-radius: 50%;
+  border: 1px solid rgba(26,20,16,0.14);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: all 0.2s;
+  font-size: 9px; color: transparent;
+}
+.option.selected .option-check { background: var(--gold); border-color: var(--gold); color: #faf7f2; font-weight: 700; }
+
+/* ── MULTI ── */
+.multi-hint {
+  font-size: 11.5px; color: var(--ink-2); margin-bottom: 16px;
+  padding: 8px 14px; background: rgba(168,136,42,0.04);
+  border-radius: 6px; border-left: 1.5px solid rgba(168,136,42,0.28);
+  letter-spacing: 0.02em;
+}
+
+/* ── INPUT ── */
+.input-wrap input {
+  width: 100%; padding: 16px 18px;
+  background: #ffffff;
+  border: 1px solid var(--b-neu);
+  border-radius: 10px; color: var(--ink);
+  font-size: 16px; font-weight: 300; font-family: 'Inter', sans-serif;
+  outline: none; transition: border-color 0.2s, background 0.2s;
+  margin-bottom: 8px;
+}
+.input-wrap input:focus { border-color: var(--gold); background: rgba(168,136,42,0.03); }
+.input-wrap input::placeholder { color: var(--ink-3); }
+
+/* ── BTN NEXT ── */
+.btn-next {
+  display: block; width: 100%; margin-top: 24px; padding: 15px 28px;
+  background: var(--grad);
+  color: #faf7f2; font-size: 13px; font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.8px; text-transform: uppercase;
+  border: none; border-radius: 3px; cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+  box-shadow: 0 4px 20px rgba(168,136,42,0.18);
+}
+.btn-next:hover { transform: translateY(-1px); box-shadow: 0 8px 30px rgba(168,136,42,0.30); }
+.btn-next:disabled { opacity: 0.35; cursor: not-allowed; transform: none; box-shadow: none; background: #d8d0c4; color: #9b8e82; }
+
+/* ════════════════════════════════
+   LOADING
+════════════════════════════════ */
+.loading { display: none; text-align: center; padding: 80px 0; }
+.loading.active { display: block; }
+.spinner {
+  width: 40px; height: 40px;
+  border: 1.5px solid rgba(168,136,42,0.14);
+  border-top-color: var(--gold);
+  border-radius: 50%; animation: spin 1s linear infinite;
+  margin: 0 auto 32px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 19px; font-weight: 400; margin-bottom: 8px; color: var(--ink);
+}
+.loading p { font-size: 13px; color: var(--ink-2); margin-bottom: 40px; letter-spacing: 0.02em; }
+.load-steps { text-align: left; max-width: 290px; margin: 0 auto; }
+.load-step {
+  display: flex; align-items: center; gap: 10px;
+  padding: 7px 0; font-size: 12px; color: var(--ink-3);
+  opacity: 0; transition: opacity 0.5s, color 0.5s;
+}
+.load-step.done { opacity: 1; color: var(--ink-2); }
+.load-step .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+
+/* ════════════════════════════════
+   RESULTADO
+════════════════════════════════ */
+.result-page { display: none; animation: fadeUp 0.5s cubic-bezier(0.4,0,0.2,1); }
+.result-page.active { display: block; }
+
+/* ── Topo ── */
+.result-top { text-align: center; padding: 8px 0 36px; }
+
+.gold-monogram {
+  width: 64px; height: 64px; margin: 0 auto 24px;
+  border: 1px solid var(--b-gold);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gold);
+  background: var(--gold-dim);
+}
+
+.result-top h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(19px, 3.8vw, 28px);
+  font-weight: 400; line-height: 1.32;
+  margin-bottom: 12px; color: var(--ink);
+}
+.result-top h2 em { font-style: italic; color: var(--gold-lt); }
+.result-top p { font-size: 13px; color: var(--ink-2); line-height: 1.75; max-width: 480px; margin: 0 auto; }
+
+.produto-badge {
+  display: inline-block; margin-top: 16px;
+  border: 1px solid var(--b-gold);
+  border-radius: 2px; padding: 5px 16px;
+  font-size: 10px; font-weight: 500; color: var(--gold);
+  letter-spacing: 2px; text-transform: uppercase;
+}
+
+/* ── DIVISOR ── */
+.divider {
+  height: 1px; background: var(--b-gold);
+  margin: 32px 0;
+}
+
+/* ── FINANCE GRID ── */
+.finance-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 28px 0; }
+.fin-card {
+  border-radius: 12px; padding: 20px 16px; text-align: center;
+}
+.fin-card.loss      { background: rgba(217,48,80,0.05);  border: 1px solid rgba(217,48,80,0.16); }
+.fin-card.gain      { background: rgba(13,143,100,0.05); border: 1px solid rgba(13,143,100,0.16); }
+.fin-card.recurrence{ background: rgba(168,136,42,0.05); border: 1px solid rgba(168,136,42,0.18); }
+.fin-card.team      { background: rgba(82,84,200,0.05);  border: 1px solid rgba(82,84,200,0.16); }
+
+.fin-label {
+  font-size: 8.5px; font-weight: 500; letter-spacing: 2px;
+  text-transform: uppercase; margin-bottom: 14px; display: block;
+}
+.fin-card.loss .fin-label      { color: rgba(217,48,80,0.80); }
+.fin-card.gain .fin-label      { color: rgba(13,143,100,0.85); }
+.fin-card.recurrence .fin-label{ color: rgba(168,136,42,0.90); }
+.fin-card.team .fin-label      { color: rgba(82,84,200,0.80); }
+
+.fin-val {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(16px, 3.8vw, 24px); font-weight: 600; line-height: 1; margin-bottom: 8px;
+}
+.fin-card.loss .fin-val      { color: #d93050; }
+.fin-card.gain .fin-val      { color: #0d8f64; }
+.fin-card.recurrence .fin-val{ color: var(--gold); }
+.fin-card.team .fin-val      { color: #5254c8; }
+.fin-sub { font-size: 10.5px; color: var(--ink-3); line-height: 1.5; }
+
+.finance-full {
+  border-radius: 12px; padding: 20px 22px; margin-top: 8px;
+  background: #ffffff;
+  border: 1px solid var(--b-neu);
+}
+.finance-full .fin-label { color: var(--ink-3); }
+.finance-full .fin-desc { font-size: 12.5px; color: var(--ink-2); line-height: 1.85; }
+.finance-full .fin-desc strong { color: var(--ink); font-weight: 500; }
+
+/* ── SECTION LABEL ── */
+.section-label {
+  font-size: 8.5px; font-weight: 500; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--gold);
+  margin: 36px 0 16px; display: block;
+  opacity: 0.7;
+}
+
+/* ── GOALS ── */
+.goals-card {
+  background: rgba(201,168,76,0.04);
+  border: 1px solid rgba(201,168,76,0.12);
+  border-radius: 12px; padding: 20px 22px; margin: 14px 0;
+}
+.goals-label {
+  font-size: 8.5px; font-weight: 500; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 16px; opacity: 0.7;
+}
+.goal-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  margin-bottom: 9px; font-size: 13px; color: var(--ink-2); line-height: 1.55;
+}
+.goal-item:last-child { margin-bottom: 0; }
+.goal-check { color: var(--gold); flex-shrink: 0; margin-top: 1px; opacity: 0.75; }
+
+/* ── OFERTA ── */
+.offer-card {
+  background: #ffffff;
+  border: 1px solid var(--b-gold);
+  border-radius: 12px; padding: 28px; margin: 14px 0;
+}
+.offer-icon {
+  width: 46px; height: 46px;
+  background: var(--gold-dim); border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gold); margin-bottom: 18px;
+}
+.offer-card h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px; font-weight: 400; color: var(--ink);
+  margin-bottom: 12px; line-height: 1.4;
+}
+.offer-card h4 em { font-style: italic; color: var(--gold-lt); }
+.offer-card p { font-size: 12.5px; color: var(--ink-2); line-height: 1.85; margin-bottom: 20px; }
+.offer-bullets { display: flex; flex-direction: column; gap: 10px; }
+.offer-bullet {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 13px; color: var(--ink-2); line-height: 1.55;
+}
+.offer-bullet-icon { color: var(--gold); flex-shrink: 0; margin-top: 1px; opacity: 0.75; font-size: 11px; }
+
+/* ════════════════════════════════
+   PROVA SOCIAL — NOVO FORMATO
+════════════════════════════════ */
+
+/* Métricas de impacto */
+.results-bar {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  border: 1px solid var(--b-gold); border-radius: 4px;
+  overflow: hidden; margin-bottom: 20px;
+  background: rgba(168,136,42,0.03);
+}
+.result-metric {
+  text-align: center; padding: 22px 12px;
+  border-right: 1px solid var(--b-gold);
+}
+.result-metric:last-child { border-right: none; }
+.rm-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px; font-weight: 600;
+  color: var(--gold); line-height: 1; margin-bottom: 6px;
+}
+.rm-label { font-size: 11px; color: var(--ink-2); line-height: 1.45; margin-bottom: 8px; }
+.rm-context {
+  font-size: 9.5px; color: var(--ink-3); letter-spacing: 0.02em;
+  border-top: 1px solid var(--b-neu); padding-top: 8px;
+}
+
+/* Depoimentos */
+.testimonials { display: flex; flex-direction: column; gap: 12px; }
+
+.testimonial {
+  background: #ffffff;
+  border: 1px solid var(--b-neu);
+  border-radius: 12px; padding: 24px;
+  position: relative;
+}
+
+.testimonial-stars {
+  display: flex; gap: 3px; margin-bottom: 14px;
+}
+.star { color: var(--gold); font-size: 12px; }
+
+.testimonial-text {
+  font-size: 13.5px; color: var(--ink-2); line-height: 1.85;
+  margin-bottom: 18px; font-style: italic;
+}
+.testimonial-text strong { color: var(--ink); font-style: normal; font-weight: 500; }
+
+.testimonial-bottom { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+.testimonial-author { display: flex; align-items: center; gap: 10px; }
+.author-avatar {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: var(--grad);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 600; color: #faf7f2; flex-shrink: 0;
+  font-family: 'Playfair Display', serif;
+}
+.author-info strong { display: block; font-size: 12.5px; font-weight: 500; color: var(--ink); margin-bottom: 1px; }
+.author-info span { font-size: 11px; color: var(--ink-3); }
+
+.result-pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(13,143,100,0.07); border: 1px solid rgba(13,143,100,0.18);
+  border-radius: 3px; padding: 4px 10px;
+  font-size: 11px; font-weight: 500; color: #0d8f64;
+  letter-spacing: 0.02em; white-space: nowrap;
+}
+
+/* ════════════════════════════════
+   CTA — FOCO NA CALL
+════════════════════════════════ */
+.cta-section { text-align: center; padding: 36px 0 12px; }
+
+/* Preview da call */
+.call-preview {
+  background: #ffffff;
+  border: 1px solid var(--b-gold);
+  border-radius: 12px; padding: 28px 28px 24px;
+  margin-bottom: 32px; text-align: left;
+}
+.call-preview-header {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+}
+.call-preview-icon {
+  width: 40px; height: 40px; flex-shrink: 0;
+  background: var(--gold-dim); border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gold);
+}
+.call-preview-label {
+  font-size: 9px; font-weight: 500; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--gold); opacity: 0.7; margin-bottom: 3px;
+}
+.call-preview-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px; font-weight: 400; color: var(--ink); line-height: 1.3;
+}
+.call-items { display: flex; flex-direction: column; gap: 11px; }
+.call-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 13px; color: var(--ink-2); line-height: 1.55;
+}
+.call-item-dot {
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--gold); flex-shrink: 0; margin-top: 7px; opacity: 0.7;
+}
+
+/* Escassez */
+.scarcity-banner {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1px solid rgba(217,48,80,0.22);
+  border-radius: 3px; padding: 8px 18px;
+  font-size: 12px; font-weight: 500; color: rgba(217,48,80,0.80);
+  margin-bottom: 24px; letter-spacing: 0.3px;
+  background: rgba(217,48,80,0.04);
+}
+.scarcity-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #d93050; animation: pulse 1.5s ease-in-out infinite; flex-shrink: 0;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.3;transform:scale(0.7)} }
+
+.cta-section h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(18px, 3.8vw, 24px); font-weight: 400;
+  margin-bottom: 12px; line-height: 1.38; color: var(--ink);
+}
+.cta-section h3 em { font-style: italic; color: var(--gold-lt); }
+.cta-section > p { font-size: 13px; color: var(--ink-2); margin-bottom: 28px; line-height: 1.75; }
+
+.btn-cta {
+  display: block; width: 100%; padding: 20px 28px;
+  background: var(--grad);
+  color: #faf7f2; font-size: 13px; font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 1px; text-transform: uppercase;
+  border: none; border-radius: 3px; cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+  text-decoration: none; margin-bottom: 20px;
+  box-shadow: 0 4px 28px rgba(168,136,42,0.22);
+}
+.btn-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 44px rgba(168,136,42,0.38); }
+
+/* Garantias */
+.guarantee-grid {
+  display: flex; justify-content: center; flex-wrap: wrap;
+  gap: 0; border: 1px solid var(--b-neu); border-radius: 4px; overflow: hidden;
+}
+.guarantee-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 18px;
+  font-size: 11.5px; color: var(--ink-2);
+  border-right: 1px solid var(--b-neu);
+  letter-spacing: 0.02em;
+}
+.guarantee-item:last-child { border-right: none; }
+.g-icon { color: var(--gold); opacity: 0.6; flex-shrink: 0; font-size: 12px; }
+
+.scarcity-final {
+  font-size: 11px; color: rgba(217,48,80,0.55);
+  font-weight: 400; margin: 16px 0 0; letter-spacing: 0.3px;
+}
+
+/* ── FOOTER ── */
+.footer {
+  text-align: center; margin-top: 56px;
+  padding-top: 24px; border-top: 1px solid var(--b-neu);
+  font-size: 10.5px; color: var(--ink-3); line-height: 1.9;
+  letter-spacing: 0.02em;
+}
+
+/* ── MOBILE ── */
+@media (max-width: 600px) {
+  .container { padding: 56px 16px 48px; }
+
+  /* Intro */
+  .intro h1 { font-size: clamp(22px, 6.5vw, 32px); }
+  .intro .hook { font-size: 14px; }
+  .stat-row { flex-wrap: wrap; }
+  .stat { flex: 1 1 33%; min-width: 0; padding: 16px 10px; }
+  .stat .val { font-size: 22px; }
+  .stat .lbl { font-size: 10px; max-width: 72px; }
+  .btn-start { padding: 16px 24px; font-size: 13px; width: 100%; }
+  .badge { font-size: 9px; letter-spacing: 2px; padding: 6px 16px; margin-bottom: 28px; }
+
+  /* Steps */
+  .step h2 { font-size: clamp(17px, 5vw, 22px); }
+  .option { padding: 12px 14px; min-height: 54px; }
+  .option-text strong { font-size: 13px; }
+  .option-text span { font-size: 11px; }
+  .option-icon { width: 34px; height: 34px; }
+
+  /* Result */
+  .finance-grid { grid-template-columns: 1fr; }
+  .fin-val { font-size: 20px; }
+  .results-bar { grid-template-columns: 1fr; }
+  .result-metric { border-right: none; border-bottom: 1px solid var(--b-gold); padding: 16px 12px; }
+  .result-metric:last-child { border-bottom: none; }
+  .rm-val { font-size: 24px; }
+  .testimonial { padding: 18px; }
+  .testimonial-text { font-size: 13px; }
+  .testimonial-bottom { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .result-pill { align-self: flex-start; }
+
+  /* CTA */
+  .call-preview { padding: 20px 18px; }
+  .offer-card { padding: 20px 18px; }
+  .scarcity-banner { font-size: 11px; padding: 7px 14px; text-align: left; }
+  .btn-cta { padding: 18px 20px; font-size: 12px; }
+  .guarantee-grid { flex-direction: column; }
+  .guarantee-item { border-right: none; border-bottom: 1px solid var(--b-neu); padding: 11px 16px; }
+  .guarantee-item:last-child { border-bottom: none; }
+
+  /* Loading */
+  .loading { padding: 60px 0; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar" style="width:0%"></div>
+
+<div class="container">
+
+  <!-- ===== INTRO ===== -->
+  <div id="introScreen" class="intro">
+    <div class="badge">Diagnóstico Gratuito · Clínicas de Estética · 2 min</div>
+
+    <h1>Descubra quanto sua clínica pode faturar <span class="highlight-mais">a mais</span> nos próximos 45 dias</h1>
+
+    <p class="hook">
+      <em>65% dos leads</em> que chegam para clínicas de estética nunca viram pacientes.
+      Não por falta de interesse — por falta de processo.<br><br>
+      <strong>Em 2 minutos, você descobre o potencial escondido na sua operação
+      e o que fazer para transformá-lo em faturamento real nos próximos 45 dias.</strong>
+    </p>
+
+    <div class="stat-row">
+      <div class="stat">
+        <div class="val">65%</div>
+        <div class="lbl">dos leads some antes de ser atendido</div>
+      </div>
+      <div class="stat">
+        <div class="val">10x</div>
+        <div class="lbl">mais chance de fechar em até 5 min</div>
+      </div>
+      <div class="stat">
+        <div class="val">45 dias</div>
+        <div class="lbl">para mudar completamente sua operação</div>
+      </div>
+    </div>
+
+    <button class="btn-start" onclick="startQuiz()">Calcular meu potencial de faturamento →</button>
+    <div class="trust-row">✓ Gratuito &nbsp;·&nbsp; ✓ 2 minutos &nbsp;·&nbsp; ✓ Resultado personalizado para sua clínica</div>
+  </div>
+
+  <!-- ===== LOADING ===== -->
+  <div class="loading" id="loadingScreen">
+    <div class="spinner"></div>
+    <h3>Calculando o potencial da sua clínica...</h3>
+    <p>Cruzando seus dados com benchmarks reais do setor de estética</p>
+    <div class="load-steps">
+      <div class="load-step" id="ls1"><div class="dot"></div> Analisando volume e tempo de resposta</div>
+      <div class="load-step" id="ls2"><div class="dot"></div> Calculando receita perdida e impacto em recorrência</div>
+      <div class="load-step" id="ls3"><div class="dot"></div> Mapeando o que custaria resolver isso com equipe humana</div>
+      <div class="load-step" id="ls4"><div class="dot"></div> Gerando seu diagnóstico personalizado</div>
+    </div>
+  </div>
+
+  <!-- ===== STEP 1 ===== -->
+  <div class="step" id="step1">
+    <div class="step-dots-wrap" id="dots1"></div>
+    <h2>Antes de começar — como você quer que eu te chame?</h2>
+    <p class="sub">O diagnóstico vai ser personalizado com o seu nome e o perfil da sua clínica.</p>
+    <div class="input-wrap">
+      <input type="text" id="nameInput" placeholder="Seu primeiro nome"
+        oninput="checkName()" onkeydown="if(event.key==='Enter' && !document.getElementById('btnS1').disabled) nextStep()" autofocus>
+    </div>
+    <button class="btn-next" id="btnS1" onclick="nextStep()" disabled>Continuar →</button>
+  </div>
+
+  <!-- ===== STEP 2 ===== -->
+  <div class="step" id="step2">
+    <div class="step-dots-wrap" id="dots2"></div>
+    <h2>Qual é o foco principal da sua clínica hoje?</h2>
+    <p class="sub">Cada especialidade tem benchmarks diferentes de conversão. Isso afina o cálculo.</p>
+    <div class="options">
+      <div class="option" onclick="selAuto('nicho','harmonizacao',this,3)">
+        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z"/><path d="M19.5 3l-.94 2.69-2.69.94 2.69.94.94 2.69.94-2.69 2.69-.94-2.69-.94L19.5 3Z"/></svg></div>
+        <div class="option-text"><strong>Harmonização Facial</strong><span>Botox, preenchimento, fios, bioestimuladores</span></div>
+        <div class="option-check">✓</div>
+      </div>
+      <div class="option" onclick="selAuto('nicho','estetica_avancada',this,3)">
+        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z"/></svg></div>
+        <div class="option-text"><strong>Estética Avançada / Laser / Corporal</strong><span>Criolipólise, radiofrequência, sculptra, laser</span></div>
+        <div class="option-check">✓</div>
+      </div>
+      <div class="option" onclick="selAuto('nicho','spa_medico',this,3)">
+        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z"/></svg></div>
+        <div class="option-text"><strong>Spa Médico / Clínica Completa</strong><span>Mix de procedimentos estéticos e bem-estar</span></div>
+        <div class="option-check">✓</div>
+      </div>
+      <div class="option" onclick="selAuto('nicho','solo',this,3)">
+        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg></div>
+        <div class="option-text"><strong>Consultório Solo</strong><span>Biomédico, enfermeiro ou médico esteta individual</span></div>
+        <div class="option-check">✓</div>
+      </div>
+      <div class="option" onclick="selAuto('nicho','pele',this,3)">
+        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12.75 3.03v.568c0 .334.148.65.405.864l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 0 1-1.161.886l-.143.048a1.107 1.107 0 0 0-.57 1.664c.369.555.169 1.307-.427 1.605L9 13.125l.423 1.059a.956.956 0 0 1-1.652.928l-.679-.906a1.125 1.125 0 0 0-1.906.172L4.5 15.75l-.612.153M12.75 3.031a9 9 0 0 0-8.862 12.872M12.75 3.031a9 9 0 0 1 6.69 14.036m0 0-.177-.529A2.25 2.25 0 0 0 17.128 15H16.5l-.324-.324a1.453 1.453 0 0 0-2.328.377l-.036.073a1.586 1.586 0 0 1-.982.816l-.99.282c-.55.157-.894.702-.8 1.267l.073.438c.08.474.49.821.97.821.846 0 1.598.542 1.865 1.345l.215.643m5.276-3.67a9.012 9.012 0 0 1-5.276 3.67m0 0a9 9 0 0 1-10.275-4.835M15.75 9c0 .896-.393 1.7-1.016 2.25"/></svg></div>
+        <div class="option-text"><strong>Skincare Clínico / Estética de Pele</strong><span>Peelings, limpeza de pele, tratamentos faciais</span></div>
+        <div class="option-check">✓</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== STEP 3 ===== -->
+  <div class="step" id="step3">
+    <div class="step-dots-wrap" id="dots3"></div>
+    <h2>Quantos leads chegam por mês para você?</h2>
+    <p class="sub">Some tudo — Instagram, WhatsApp, Google, indicações que mandam mensagem. Qualquer contato que pergunta sobre procedimento conta.</p>
+    <div class="options">
+      <div class="option" onclick="selAuto('leads','20',this,4)">
+        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21.75 9v.906a2.25 2.25 0 0 1-1.183 1.981l-6.478 3.488M2.25 9v.906a2.25 2.25 0 0 0 1.183 1.981l6.478 3.488m8.839-2.51-4.66 2.51m0 0-4.66-2.51m4.66 2.51v2.5m-4.66-2.51v2.5"/><path d="M2.25 7.125C2.25 6.504 2.754 6 3.375 6h17.25c.621 0 1.125.504 1.125 1.125v3.75c0 .621-.504 1.125-1.125 1.125H3.375A1.125 1.125 0 0 1 2.25 10.875v-3.75Z"/></svg></div>
+        <div class="option-text"><strong>Menos de 30 leads/mês</strong><span>Ainda construindo volume</span></div>
+        <div class="option-check">✓</div>
+      </div>
+      <div class="option" onclick="selAuto('leads','55',this,4)">
+        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21.75 9v.906a2.25 2.25 0 0 1-1.183 1.981l-6.478 3.488M2.25 9v.906a2.25 2.25 0 0 0 1.183 1.981l6.478 3.488m8.839-2.51-4.66 2.51m0 0-4.66-2.51m4.66 2.51v2.5m-4.66-2.51v2.5M3 3h12m-6 0V1.5m0 1.5V6"/><path d="M2.25 7.125C2.25 6.504 2.754 6 3.375 6h17.25c.621 0 1.125.504 1.125 1.125v3.75c0 .621-.504 1.125-1.125 1.125H3.375A1.125 1.125 0 0 1 2.25 10.875v-3.75Z"/></svg></div>
+        <div class="option-text"><strong>30 a 80 leads/mês</strong><span>Volume crescendo, mas perda já visível</span></div>
+        <div class="option-check">✓</div>
+      </div>
+      <div class="option" onclick="selAuto('leads','120',this,4)">
+        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2.25 13.5h3.86a2.25 2.25 0 0 1 2.012 1.244l.256.512a2.25 2.25 0 0 0 2.013 1.244h3.218a2.25 2.25 0 0 0 2.013-1.244l.256-.512a2.25 2.25 0 0 1 2.013-1.244h3.859m-19.5.338V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 0 0-2.15-1.588H6.911a2.25 2.25 0 0 0-2.15 1.588L2.35 13.177a2.25 2.25 0 0 0-.1.661Z"/></svg></div>
+        <div class="option-text"><strong>80 a 150 leads/mês</strong><span>Alto volume — difícil dar conta manualmente</span></div>
+        <div class="option-check">✓</div>
+      </div>
+      <div class="option" onclick="selAuto('leads','200',this,4)">
+        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m9 12.75 3 3m0 0 3-3m-3 3v-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg></div>
+        <div class="option-text"><strong>Mais de 150 leads/mês</strong><span>Potencial enorme sendo subutilizado</span></div>
+        <div class="option-check">✓</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== STEP 4 ===== -->
+  <div class="step" id="step4">
+    <div class="step-dots-wrap" id="dots4"></div>
+    <h2>Em quanto tempo sua clínica responde um lead novo?</h2>
+    <p class="sub">Esse é o fator que mais impacta conversão no setor de estética. Sem julgamento — precisamos do número real para calcular seu potencial.</p>
+    <div class="options">
+      <div class="option" onclick="selAuto('resposta','5min',this,5)">
+        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z"/></svg></div>
+        <div class="option-text"><strong>Até 5 minutos</strong><span>Resposta quase imediata — ótimo ponto de partida</span></div>
+        <div class="option-check">✓</div>
+      </div>
+      <div class="option" onclick="selAuto('resposta','1h',this,5)">
+        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg></div>
+        <div class="option-text"><strong>30 minutos a 1 hora</strong><span>Razoável, mas há espaço para crescer muito mais</span></div>
+        <div class="option-check">✓</div>
+      </div>
+      <div class="option" onclick="selAuto('resposta','4h',this,5)">
+        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg></div>
+        <div class="option-text"><strong>1 a 4 horas</strong><span>Média do Brasil — grande janela de oportunidade à vista</span></div>
+        <div class="option-check">✓</div>
+      </div>
+      <div class="option" onclick="selAuto('resposta','depois',this,5)">
+        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z"/></svg></div>
+        <div class="option-text"><strong>Mais de 4 horas / dia seguinte</strong><span>Potencial gigante esperando para ser destravado</span></div>
+        <div class="option-check">✓</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== STEP 5 ===== -->
+  <div class="step" id="step5">
+    <div class="step-dots-wrap" id="dots5"></div>
+    <h2>O que você quer conquistar na sua operação nos próximos 45 dias?</h2>
+    <p class="sub"><strong>Escolha até 3</strong> que mais refletem onde você quer chegar.</p>
+    <div class="multi-hint">Selecione até 3 opções — depois clique em continuar</div>
+    <div class="options">
+      <div class="option" onclick="multiSel('objetivos','resposta_rapida',this,3)">
+        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z"/></svg></div>
+        <div class="option-text"><strong>Responder todo lead em minutos — 24h por dia</strong><span>Sem depender de recepcionista ou de estar disponível</span></div>
+        <div class="option-check">✓</div>
+      </div>
+      <div class="option" onclick="multiSel('objetivos','parar_perder',this,3)">
+        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941"/></svg></div>
+        <div class="option-text"><strong>Converter mais leads em pacientes agendados</strong><span>Parar de perder consulta para quem respondeu primeiro</span></div>
+        <div class="option-check">✓</div>
+      </div>
+      <div class="option" onclick="multiSel('objetivos','followup',this,3)">
+        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"/></svg></div>
+        <div class="option-text"><strong>Reativar quem pediu preço e sumiu</strong><span>Follow-up automático recuperando oportunidades esquecidas</span></div>
+        <div class="option-check">✓</div>
+      </div>
+      <div class="option" onclick="multiSel('objetivos','escalar',this,3)">
+        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/></svg></div>
+        <div class="option-text"><strong>Crescer o faturamento sem aumentar equipe</strong><span>Escalar sem elevar o custo fixo</span></div>
+        <div class="option-check">✓</div>
+      </div>
+      <div class="option" onclick="multiSel('objetivos','previsibilidade',this,3)">
+        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z"/></svg></div>
+        <div class="option-text"><strong>Ter previsibilidade e controle total do faturamento</strong><span>Saber exatamente quantos pacientes vêm e de onde</span></div>
+        <div class="option-check">✓</div>
+      </div>
+      <div class="option" onclick="multiSel('objetivos','noshow',this,3)">
+        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg></div>
+        <div class="option-text"><strong>Lotar a agenda e reduzir no-show</strong><span>Confirmações automáticas, cancelamentos repostos</span></div>
+        <div class="option-check">✓</div>
+      </div>
+    </div>
+    <button class="btn-next" id="btnS5" onclick="nextStep()" disabled>Ver meu diagnóstico →</button>
+  </div>
+
+  <!-- ===== STEP 6 ===== -->
+  <div class="step" id="step6">
+    <div class="step-dots-wrap" id="dots6"></div>
+    <h2>Uma última pergunta sobre o controle da sua clínica hoje</h2>
+    <p class="sub">Não existe resposta certa. Isso define o que priorizamos no seu resultado.</p>
+    <div class="options">
+      <div class="option" onclick="selAuto('controle','zero',this,7)">
+        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z"/></svg></div>
+        <div class="option-text"><strong>"Não sei exatamente quantos leads chegam, convertem ou somem"</strong><span>Opero sem dados claros sobre a minha operação</span></div>
+        <div class="option-check">✓</div>
+      </div>
+      <div class="option" onclick="selAuto('controle','parcial',this,7)">
+        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"/><path d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg></div>
+        <div class="option-text"><strong>"Tenho uma noção, mas não sei quais leads têm mais chance de fechar"</strong><span>Trato todos igual, sem saber quem priorizar</span></div>
+        <div class="option-check">✓</div>
+      </div>
+      <div class="option" onclick="selAuto('controle','quero',this,7)">
+        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7.864 4.243A7.5 7.5 0 0 1 19.5 10.5c0 2.92-.556 5.709-1.568 8.268M5.742 6.364A7.465 7.465 0 0 0 4.5 10.5a7.464 7.464 0 0 1-1.15 3.993m1.989 3.559A11.209 11.209 0 0 0 8.25 10.5a3.75 3.75 0 1 1 7.5 0c0 .527-.021 1.049-.064 1.565M12 10.5a14.94 14.94 0 0 1-3.6 9.75m6.633-4.596a18.666 18.666 0 0 1-2.485 5.33"/></svg></div>
+        <div class="option-text"><strong>"Quero saber qual lead está pronto para comprar antes de ligar"</strong><span>Foco energia onde vai converter de verdade</span></div>
+        <div class="option-check">✓</div>
+      </div>
+      <div class="option" onclick="selAuto('controle','total',this,7)">
+        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"/></svg></div>
+        <div class="option-text"><strong>"Quero controle total — cada lead, cada real, cada paciente rastreado"</strong><span>Dashboard completo da operação em tempo real</span></div>
+        <div class="option-check">✓</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== STEP 7 ===== -->
+  <div class="step" id="step7">
+    <div class="step-dots-wrap" id="dots7"></div>
+    <h2>Qual é o ticket médio de um novo paciente na sua clínica?</h2>
+    <p class="sub">Última pergunta — essa define o tamanho real do potencial que você tem na mão.</p>
+    <div class="options">
+      <div class="option" onclick="selAuto('ticket','800',this,0)">
+        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg></div>
+        <div class="option-text"><strong>R$ 400 a R$ 1.200</strong><span>Botox, skincare, procedimentos rápidos</span></div>
+        <div class="option-check">✓</div>
+      </div>
+      <div class="option" onclick="selAuto('ticket','2500',this,0)">
+        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg></div>
+        <div class="option-text"><strong>R$ 1.200 a R$ 4.000</strong><span>Bioestimuladores, peelings, laser</span></div>
+        <div class="option-check">✓</div>
+      </div>
+      <div class="option" onclick="selAuto('ticket','7000',this,0)">
+        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z"/></svg></div>
+        <div class="option-text"><strong>R$ 4.000 a R$ 10.000</strong><span>Harmonização facial completa, sculptra</span></div>
+        <div class="option-check">✓</div>
+      </div>
+      <div class="option" onclick="selAuto('ticket','15000',this,0)">
+        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.25v8.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 1 0 9.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1 1 14.625 7.5H12m0 0V21m-8.625-9.75h18c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125h-18c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z"/></svg></div>
+        <div class="option-text"><strong>Acima de R$ 10.000</strong><span>Pacotes premium, procedimentos completos</span></div>
+        <div class="option-check">✓</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       RESULTADO
+  ═══════════════════════════════════════ -->
+  <div class="result-page" id="resultPage">
+
+    <!-- Topo -->
+    <div class="result-top">
+      <div class="gold-monogram">
+        <svg width="26" height="26" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.25"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/></svg>
+      </div>
+      <h2 id="resultTitle"></h2>
+      <p id="resultSub"></p>
+      <div class="produto-badge" id="produtoBadge"></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Cards financeiros -->
+    <div class="finance-grid">
+      <div class="fin-card loss">
+        <span class="fin-label">Deixando na mesa</span>
+        <div class="fin-val" id="lossVal"></div>
+        <div class="fin-sub">receita que some todo mês em leads não convertidos</div>
+      </div>
+      <div class="fin-card gain">
+        <span class="fin-label">Potencial mensal</span>
+        <div class="fin-val" id="gainVal"></div>
+        <div class="fin-sub">faturamento adicional estimado com a operação otimizada</div>
+      </div>
+      <div class="fin-card recurrence">
+        <span class="fin-label">Potencial anual</span>
+        <div class="fin-val" id="recurrenceVal"></div>
+        <div class="fin-sub">considerando retorno médio de 2,4x/ano por paciente de estética</div>
+      </div>
+      <div class="fin-card team">
+        <span class="fin-label">Equipe equivalente</span>
+        <div class="fin-val" id="teamVal"></div>
+        <div class="fin-sub" id="teamSub"></div>
+      </div>
+    </div>
+
+    <div class="finance-full">
+      <div class="fin-label">Como chegamos nesses números</div>
+      <div class="fin-desc" id="finDesc"></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Objetivos -->
+    <span class="section-label">Seus objetivos para 45 dias</span>
+    <div class="goals-card">
+      <div class="goals-label">O que você quer conquistar</div>
+      <div id="goalsList"></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Oferta -->
+    <span class="section-label">O que resolve tudo isso</span>
+    <div class="offer-card">
+      <div class="offer-icon">
+        <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.25"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Zm.75-12h9v9h-9v-9Z"/></svg>
+      </div>
+      <h4>O sistema que <em>qualifica, atende, cuida e mostra tudo</em> sobre a sua operação</h4>
+      <p>
+        Clínicas que implementam esse sistema param de depender de recepcionista para não perder lead,
+        passam a saber exatamente quem é o lead pronto para comprar antes mesmo de ligar,
+        e têm visão completa da operação em tempo real — tudo integrado, tudo automático, tudo rastreado.
+      </p>
+      <div class="offer-bullets">
+        <div class="offer-bullet"><span class="offer-bullet-icon">—</span> Atendente IA que responde, qualifica e agenda automaticamente — 24h, 7 dias por semana</div>
+        <div class="offer-bullet"><span class="offer-bullet-icon">—</span> Lead scoring: você sabe quem está pronto para comprar antes de abrir o WhatsApp</div>
+        <div class="offer-bullet"><span class="offer-bullet-icon">—</span> Sequências de follow-up que reativam leads frios sem esforço manual</div>
+        <div class="offer-bullet"><span class="offer-bullet-icon">—</span> Dashboard completo: cada lead, canal, conversão e real rastreados em tempo real</div>
+        <div class="offer-bullet"><span class="offer-bullet-icon">—</span> Confirmação automática de consultas e reposição de cancelamentos</div>
+        <div class="offer-bullet"><span class="offer-bullet-icon">—</span> Implementado em 10–15 dias pela nossa equipe — você só aprova</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- PROVA SOCIAL -->
+    <span class="section-label">Resultados reais</span>
+
+    <div class="results-bar">
+      <div class="result-metric">
+        <div class="rm-val">+18</div>
+        <div class="rm-label">novos pacientes por mês</div>
+        <div class="rm-context">Harmonização · São Paulo, SP</div>
+      </div>
+      <div class="result-metric">
+        <div class="rm-val">2 sem</div>
+        <div class="rm-label">para lotar a agenda</div>
+        <div class="rm-context">Estética avançada · Campinas, SP</div>
+      </div>
+      <div class="result-metric">
+        <div class="rm-val">22x</div>
+        <div class="rm-label">retorno sobre o investimento</div>
+        <div class="rm-context">Spa médico · Rio de Janeiro, RJ</div>
+      </div>
+    </div>
+
+    <div class="testimonials">
+
+      <div class="testimonial">
+        <div class="testimonial-stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <div class="testimonial-text">
+          "Eu recebia uns 80 leads por mês e perdia quase metade porque não dava para responder tudo a tempo — principalmente final de semana e à noite. Depois da implementação, <strong>minha agenda lotou em duas semanas</strong>. O sistema qualifica, já manda informação do procedimento e agenda a avaliação sozinho. Eu entro só para confirmar. Nunca mais perdi lead por falta de resposta."
+        </div>
+        <div class="testimonial-bottom">
+          <div class="testimonial-author">
+            <div class="author-avatar">C</div>
+            <div class="author-info">
+              <strong>Camila R., Biomédica Esteta</strong>
+              <span>Harmonização Facial · São Paulo, SP</span>
+            </div>
+          </div>
+          <div class="result-pill">↑ Agenda lotada em 2 semanas</div>
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <div class="testimonial-stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <div class="testimonial-text">
+          "O que mudou de verdade foi saber para quem ligar. Antes eu gastava horas tentando aquecer lead frio. Com o lead scoring, eu abro o painel e já sei quem está pronto para comprar. <strong>No primeiro mês recuperei clientes que tinham sumido há semanas</strong> e fechei dois pacotes de harmonização que eu tinha dado como perdidos."
+        </div>
+        <div class="testimonial-bottom">
+          <div class="testimonial-author">
+            <div class="author-avatar">M</div>
+            <div class="author-info">
+              <strong>Mariana S., Médica Esteta</strong>
+              <span>Spa Médico · Belo Horizonte, MG</span>
+            </div>
+          </div>
+          <div class="result-pill">↑ +2 pacotes fechados na 1ª semana</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- CTA — FOCO NA CALL -->
+    <div class="cta-section">
+
+      <div class="call-preview">
+        <div class="call-preview-header">
+          <div class="call-preview-icon">
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z"/></svg>
+          </div>
+          <div>
+            <div class="call-preview-label">Sua próxima etapa</div>
+            <div class="call-preview-title">O que acontece na sua call de 20 minutos</div>
+          </div>
+        </div>
+        <div class="call-items">
+          <div class="call-item"><div class="call-item-dot"></div>Diagnóstico completo da sua operação com base nos números que você acabou de informar</div>
+          <div class="call-item"><div class="call-item-dot"></div>Identificação dos 3 principais pontos de vazamento de lead na sua clínica agora</div>
+          <div class="call-item"><div class="call-item-dot"></div>Demonstração ao vivo do sistema funcionando com leads reais do seu nicho</div>
+          <div class="call-item"><div class="call-item-dot"></div>Plano de implementação personalizado — você sai com clareza total sobre os próximos passos</div>
+        </div>
+      </div>
+
+      <div class="scarcity-banner">
+        <div class="scarcity-dot"></div>
+        Restam apenas 2 vagas para diagnóstico esta semana
+      </div>
+
+      <h3>Quer transformar esse potencial em <em>faturamento real</em>?</h3>
+      <p id="ctaSub"></p>
+
+      <a href="https://calendly.com/SEU-LINK-AQUI" id="btnCTA" class="btn-cta" target="_blank">
+        Garantir minha vaga no diagnóstico gratuito →
+      </a>
+
+      <div class="guarantee-grid">
+        <div class="guarantee-item"><span class="g-icon">◇</span>Call de 20 minutos</div>
+        <div class="guarantee-item"><span class="g-icon">◇</span>Sem compromisso</div>
+        <div class="guarantee-item"><span class="g-icon">◇</span>100% gratuito</div>
+      </div>
+
+      <div class="scarcity-final">⚠ Apenas 2 diagnósticos disponíveis esta semana — vagas encerram assim que preenchidas</div>
+    </div>
+
+    <div class="footer">
+      Diagnóstico gerado com base em benchmarks do setor de estética no Brasil.<br>
+      Fontes: ABF, Beauty Fair, CBME, RevenueHero 2024/2025.<br>
+      Os valores são estimativas com base nos dados informados e nas médias do setor.
+    </div>
+
+  </div><!-- /result-page -->
+</div><!-- /container -->
+
+<script>
+const A = { name:'', nicho:'', leads:0, resposta:'', objetivos:[], controle:'', ticket:0 };
+const TOTAL = 7;
+let currentStep = 0;
+
+const nichoICP = {
+  harmonizacao: {
+    label: 'Harmonização Facial', produto: 'EstéticaFlow IA — Harmonização',
+    convBase: 0.074, convSist: 0.22, perdaPlus: 0.08
+  },
+  estetica_avancada: {
+    label: 'Estética Avançada', produto: 'EstéticaFlow IA — Tratamentos Avançados',
+    convBase: 0.09, convSist: 0.22, perdaPlus: 0
+  },
+  spa_medico: {
+    label: 'Spa Médico', produto: 'EstéticaFlow IA — Clínica Completa',
+    convBase: 0.10, convSist: 0.24, perdaPlus: -0.05
+  },
+  solo: {
+    label: 'Consultório Solo', produto: 'EstéticaFlow IA — Profissional Solo',
+    convBase: 0.07, convSist: 0.20, perdaPlus: 0.12
+  },
+  pele: {
+    label: 'Estética de Pele', produto: 'EstéticaFlow IA — Skincare Clínico',
+    convBase: 0.10, convSist: 0.22, perdaPlus: -0.05
+  }
+};
+
+const perdaResposta = { '5min':0.10, '1h':0.28, '4h':0.55, 'depois':0.75 };
+
+const objLabel = {
+  resposta_rapida: 'Responder todo lead em minutos — 24h por dia',
+  parar_perder:    'Converter mais leads em pacientes agendados',
+  followup:        'Reativar quem pediu preço e sumiu',
+  escalar:         'Crescer o faturamento sem aumentar equipe',
+  previsibilidade: 'Ter previsibilidade e controle total do faturamento',
+  noshow:          'Lotar a agenda e reduzir no-show'
+};
+
+function renderDots(s) {
+  for (let i = 1; i <= TOTAL; i++) {
+    const el = document.getElementById('dots' + i);
+    if (!el) continue;
+    let h = '';
+    for (let j = 1; j <= TOTAL; j++) {
+      if (j < i) h += '<div class="step-dot done"></div>';
+      else if (j === i) h += '<div class="step-dot active"></div>';
+      else h += '<div class="step-dot"></div>';
+    }
+    el.innerHTML = h;
+  }
+}
+
+function startQuiz() {
+  document.getElementById('introScreen').style.display = 'none';
+  showStep(1);
+}
+
+function showStep(n) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  const el = document.getElementById('step' + n);
+  if (el) { el.classList.add('active'); renderDots(n); }
+  currentStep = n;
+  document.getElementById('progressBar').style.width = (n / TOTAL * 100) + '%';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function nextStep() {
+  if (currentStep === 1) A.name = document.getElementById('nameInput').value.trim();
+  showStep(currentStep + 1);
+}
+
+function checkName() {
+  const v = document.getElementById('nameInput').value.trim();
+  A.name = v;
+  document.getElementById('btnS1').disabled = v.length < 2;
+}
+
+function selAuto(field, val, el, next) {
+  el.closest('.options').querySelectorAll('.option').forEach(o => o.classList.remove('selected','selecting'));
+  el.classList.add('selecting');
+  A[field] = (field === 'leads' || field === 'ticket') ? parseInt(val) : val;
+  setTimeout(() => {
+    el.classList.remove('selecting');
+    el.classList.add('selected');
+    setTimeout(() => { next === 0 ? calcular() : showStep(next); }, 220);
+  }, 180);
+}
+
+function multiSel(field, val, el, max) {
+  if (el.classList.contains('selected')) {
+    el.classList.remove('selected');
+    A[field] = A[field].filter(v => v !== val);
+  } else {
+    if (A[field].length >= max) return;
+    el.classList.add('selected');
+    A[field].push(val);
+  }
+  document.getElementById('btnS5').disabled = A[field].length === 0;
+}
+
+function calcular() {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('loadingScreen').classList.add('active');
+  document.getElementById('progressBar').style.width = '100%';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  ['ls1','ls2','ls3','ls4'].forEach((id, i) => {
+    setTimeout(() => document.getElementById(id).classList.add('done'), 600 + i * 750);
+  });
+  setTimeout(() => {
+    document.getElementById('loadingScreen').classList.remove('active');
+    buildResult();
+    document.getElementById('resultPage').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, 4000);
+}
+
+function buildResult() {
+  const icp    = nichoICP[A.nicho] || nichoICP['harmonizacao'];
+  const leads  = parseInt(A.leads)  || 55;
+  const ticket = parseInt(A.ticket) || 2500;
+  const pBase  = perdaResposta[A.resposta] || 0.55;
+  const pResp  = Math.min(0.92, pBase + icp.perdaPlus);
+
+  const leadsPerdidos    = Math.max(1, Math.round(leads * pResp));
+  const clientesPerdidos = Math.max(1, Math.round(leadsPerdidos * icp.convBase));
+  const receitaPerdida   = clientesPerdidos * ticket;
+  const potencialMensal  = receitaPerdida;
+  const potencial12m     = potencialMensal * 12;
+
+  const leadsRecuperados = Math.max(1, Math.round(leadsPerdidos * 0.65));
+  const clientesNovos    = Math.max(1, Math.round(leadsRecuperados * icp.convSist * 0.5));
+  const funcs            = Math.max(1, Math.ceil(leadsRecuperados / 50));
+  const custoEquipe      = funcs * 4500;
+
+  const fmt = n => 'R$ ' + n.toLocaleString('pt-BR');
+
+  document.getElementById('resultTitle').innerHTML =
+    `<em>${A.name}</em>, aqui está o diagnóstico real da sua ${icp.label}`;
+  document.getElementById('resultSub').textContent =
+    'Cruzamos seus dados com benchmarks reais do setor de estética. O que você vai ver abaixo não é estimativa genérica — é calculado com o seu volume, seu ticket e o seu tempo de resposta.';
+  document.getElementById('produtoBadge').textContent = icp.produto;
+
+  document.getElementById('lossVal').textContent       = fmt(receitaPerdida) + '/mês';
+  document.getElementById('gainVal').textContent       = fmt(potencialMensal) + '/mês';
+  document.getElementById('recurrenceVal').textContent = fmt(potencial12m);
+  document.getElementById('teamVal').textContent       = funcs + (funcs === 1 ? ' funcionário' : ' funcionários');
+  document.getElementById('teamSub').textContent       =
+    `= ${fmt(custoEquipe)}/mês em custo fixo para cobrir o volume que a automação resolve sozinha`;
+
+  document.getElementById('finDesc').innerHTML =
+    `Com <strong>${leadsPerdidos} leads/mês</strong> não convertidos, e conversão atual de ~${Math.round(icp.convBase*100)}% (benchmark ${icp.label}), isso representa <strong>${clientesPerdidos} pacientes que não fecharam × ticket de ${fmt(ticket)} = ${fmt(receitaPerdida)}/mês que ficou na mesa</strong>. Com a operação otimizada, a conversão sobe para ~${Math.round(icp.convSist*100)}%, gerando <strong>+${clientesNovos} pacientes extras/mês</strong>. Em 12 meses (retorno médio 2,4x/paciente), o impacto acumulado chega a <strong>${fmt(potencial12m)}</strong>.`;
+
+  document.getElementById('goalsList').innerHTML = A.objetivos.length > 0
+    ? A.objetivos.map(o => `<div class="goal-item"><span class="goal-check">—</span>${objLabel[o]}</div>`).join('')
+    : '<div class="goal-item"><span class="goal-check">—</span>Otimizar a conversão de leads da clínica</div>';
+
+  const objs   = A.objetivos.slice(0,2).map(o => objLabel[o].toLowerCase());
+  const objStr = objs.length > 1 ? objs.join(' e ') : (objs[0] || 'transformar sua operação');
+  document.getElementById('ctaSub').textContent =
+    `Em 20 minutos de call, você recebe um diagnóstico completo da sua operação e tem a oportunidade de conhecer o sistema que vai ${objStr} — com um plano claro para implementar ainda este mês.`;
+}
+</script>
+</body>
+</html>
