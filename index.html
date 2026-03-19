@@ -31,7 +31,7 @@
 
   async function saveLeadToSupabase(phone) {
     const utms = getUTMs();
-    const respScore = { agora: 20, '30min': 35, '2h': 50, '6h': 65, dia: 80, '2dias': 95 };
+    const respScore = { '5min': 20, '1h': 50, '4h': 75, 'depois': 95 };
     const form_score = respScore[A.resposta] || 50;
 
     const { error } = await _supabase.from('leads').insert({
