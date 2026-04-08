@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Ads Meta — EstéticaFlow</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --gold:    #a8882a;
+  --gold-lt: #c9a84c;
+  --grad:    linear-gradient(135deg,#a8882a 0%,#c9a84c 100%);
+  --bg:      #faf7f2;
+  --ink:     #1a1410;
+  --ink-2:   #5a4e40;
+  --ink-3:   #8a7e72;
+  --red:     #d93050;
+  --dark:    #0c0a07;
+}
+body {
+  background: #111;
+  font-family: 'Inter', sans-serif;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 56px;
+  padding: 56px 20px;
+}
+.section-label {
+  align-self: flex-start;
+  margin-left: calc(50% - 270px);
+  margin-bottom: -44px;
+  font-size: 10px; letter-spacing: 3px;
+  text-transform: uppercase; color: #444;
+}
+
+/* ─── FEED 1080×1080 exibido em 540×540 ─── */
+.feed { width: 540px; height: 540px; position: relative; overflow: hidden; border-radius: 12px; flex-shrink: 0; }
+
+/* ─── STORY 1080×1920 exibido em 405×720 ─── */
+.story { width: 405px; height: 720px; position: relative; overflow: hidden; border-radius: 16px; flex-shrink: 0; }
+
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.15} }
+@keyframes fadeup { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:none} }
+
+
+/* ═══════════════════════════════════════════════
+   AD 1 — FEED
+   Copy: "Você respondeu o lead. 11 horas depois."
+   Ângulo: custo da demora. Filtro: quem tem tráfego.
+═══════════════════════════════════════════════ */
+.a1 { background: var(--dark); }
+.a1-glow {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 90% 60% at 50% 110%, rgba(168,136,42,.15) 0%, transparent 65%);
+}
+.a1-body {
+  position: relative; height: 100%;
+  display: flex; flex-direction: column;
+  padding: 38px 40px 34px;
+}
+.a1-tag {
+  display: inline-flex; align-items: center; gap: 7px;
+  border: 1px solid rgba(217,48,80,.32); border-radius: 2px;
+  padding: 5px 12px; width: fit-content; margin-bottom: 28px;
+}
+.a1-tag-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--red); animation: blink 1.4s ease-in-out infinite; }
+.a1-tag span { font-size: 9px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(217,48,80,.8); }
+
+.a1-h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px; font-weight: 700; line-height: 1.18;
+  color: #f3ede3; margin-bottom: 10px; flex-shrink: 0;
+}
+.a1-h1 em { font-style: italic; color: var(--gold-lt); }
+
+.a1-sub {
+  font-size: 13px; color: rgba(243,237,227,.38);
+  line-height: 1.6; margin-bottom: 28px;
+}
+
+/* Timeline compacta */
+.a1-tl { display: flex; flex-direction: column; gap: 0; flex: 1; }
+.a1-tl-row { display: flex; gap: 13px; position: relative; }
+.a1-tl-row:not(:last-child)::after {
+  content: ''; position: absolute;
+  left: 13px; top: 28px; bottom: 0; width: 1px;
+  background: rgba(168,136,42,.16);
+}
+.a1-tl-dot {
+  width: 27px; height: 27px; border-radius: 50%; flex-shrink: 0;
+  border: 1px solid rgba(168,136,42,.28);
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(168,136,42,.05); margin-top: 1px;
+}
+.a1-tl-dot svg { color: var(--gold-lt); }
+.a1-tl-row.dead .a1-tl-dot { border-color: rgba(217,48,80,.3); background: rgba(217,48,80,.07); }
+.a1-tl-row.dead .a1-tl-dot svg { color: var(--red); }
+.a1-tl-txt { padding-bottom: 22px; }
+.a1-tl-time { font-size: 9.5px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold-lt); margin-bottom: 3px; }
+.a1-tl-row.dead .a1-tl-time { color: rgba(217,48,80,.7); }
+.a1-tl-main { font-size: 13px; font-weight: 600; color: rgba(243,237,227,.82); line-height: 1.35; }
+.a1-tl-row.dead .a1-tl-main { color: rgba(217,48,80,.85); }
+.a1-tl-detail { font-size: 11px; color: rgba(243,237,227,.32); margin-top: 2px; line-height: 1.45; }
+
+.a1-bottom {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 20px; border-top: 1px solid rgba(168,136,42,.1); margin-top: 4px;
+}
+.a1-brand { font-size: 9.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(243,237,227,.2); }
+.a1-cta { background: var(--grad); padding: 9px 20px; border-radius: 3px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #faf7f2; }
+
+
+/* ═══════════════════════════════════════════════
+   AD 2 — FEED
+   Copy: comparativo números. Filtro: quem já investe em tráfego.
+   Ângulo: benchmark. Dado que machuca.
+═══════════════════════════════════════════════ */
+.a2 { background: var(--bg); }
+.a2-stripe { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--grad); }
+.a2-body {
+  position: relative; height: 100%;
+  display: flex; flex-direction: column;
+  padding: 36px 40px 32px;
+}
+.a2-eyebrow {
+  font-size: 9.5px; font-weight: 700; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--red);
+  display: flex; align-items: center; gap: 9px; margin-bottom: 16px;
+}
+.a2-eyebrow::before { content: ''; width: 18px; height: 2px; background: var(--red); display: block; }
+.a2-h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 30px; font-weight: 700; line-height: 1.22;
+  color: var(--ink); margin-bottom: 24px;
+}
+.a2-h1 em { font-style: italic; color: var(--gold); }
+
+/* Colunas */
+.a2-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+.a2-col { padding: 18px 16px; border-radius: 6px; border: 1px solid; }
+.a2-col.bad { border-color: rgba(217,48,80,.2); background: rgba(217,48,80,.04); }
+.a2-col.good { border-color: rgba(168,136,42,.25); background: rgba(168,136,42,.04); }
+.a2-col-head { font-size: 8.5px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+.a2-col.bad .a2-col-head { color: var(--red); }
+.a2-col.good .a2-col-head { color: var(--gold); }
+.a2-metric { margin-bottom: 10px; }
+.a2-metric:last-child { margin-bottom: 0; }
+.a2-val { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; line-height: 1; }
+.a2-col.bad .a2-val { color: var(--red); }
+.a2-col.good .a2-val { color: var(--gold); }
+.a2-lbl { font-size: 10px; color: var(--ink-3); line-height: 1.35; margin-top: 2px; }
+
+/* Caixa perda */
+.a2-loss {
+  padding: 16px 20px; border-radius: 6px;
+  background: rgba(26,20,16,.04); border: 1px solid rgba(26,20,16,.08);
+  display: flex; align-items: center; gap: 14px; margin-bottom: 16px;
+}
+.a2-loss-num { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--ink); white-space: nowrap; }
+.a2-loss-txt { font-size: 11.5px; color: var(--ink-2); line-height: 1.5; }
+.a2-loss-txt strong { color: var(--ink); }
+
+.a2-note { font-size: 11.5px; color: var(--ink-3); line-height: 1.65; flex: 1; }
+.a2-note strong { color: var(--ink-2); }
+
+.a2-bottom {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 18px; border-top: 1px solid rgba(26,20,16,.07); margin-top: auto;
+}
+.a2-brand { font-size: 9.5px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ink-3); }
+.a2-cta-link { font-size: 11px; font-weight: 700; color: var(--gold); letter-spacing: .3px; }
+
+
+/* ═══════════════════════════════════════════════
+   AD 3 — STORY
+   Copy: promessa direta + CTA quiz
+   Ângulo: solução concreta. Conversão.
+═══════════════════════════════════════════════ */
+.a3 { background: var(--dark); }
+.a3-glow {
+  position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
+  width: 450px; height: 380px;
+  background: radial-gradient(ellipse, rgba(168,136,42,.17) 0%, transparent 65%);
+}
+.a3-body {
+  position: relative; height: 100%;
+  display: flex; flex-direction: column;
+  padding: 40px 34px 36px;
+}
+.a3-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(168,136,42,.1); border: 1px solid rgba(168,136,42,.28);
+  border-radius: 2px; padding: 5px 12px;
+  width: fit-content; margin-bottom: 28px;
+}
+.a3-pill span { font-size: 8.5px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold-lt); }
+
+.a3-pre { font-size: 11px; color: rgba(243,237,227,.36); letter-spacing: .3px; margin-bottom: 8px; }
+.a3-h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 30px; font-weight: 700; line-height: 1.18;
+  color: #f3ede3; margin-bottom: 26px;
+}
+.a3-h1 strong { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+/* Grid métricas */
+.a3-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 22px; }
+.a3-card { padding: 14px 12px; border: 1px solid rgba(168,136,42,.18); border-radius: 5px; background: rgba(168,136,42,.04); }
+.a3-card-val { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold-lt); line-height: 1; margin-bottom: 5px; }
+.a3-card-lbl { font-size: 9.5px; color: rgba(243,237,227,.36); line-height: 1.4; }
+
+.a3-sep { height: 1px; background: rgba(168,136,42,.12); margin-bottom: 18px; }
+
+.a3-proof { font-size: 11.5px; color: rgba(243,237,227,.42); line-height: 1.7; margin-bottom: 22px; }
+.a3-proof em { color: rgba(243,237,227,.75); font-style: normal; font-weight: 500; }
+
+/* Testemunho */
+.a3-quote {
+  padding: 16px 18px; background: rgba(168,136,42,.06);
+  border-left: 2px solid var(--gold-lt); border-radius: 4px;
+  margin-bottom: 22px; flex: 1;
+}
+.a3-quote-text { font-size: 12px; font-style: italic; color: rgba(243,237,227,.65); line-height: 1.6; margin-bottom: 10px; }
+.a3-quote-author { font-size: 10px; font-weight: 600; color: var(--gold-lt); letter-spacing: .5px; }
+
+/* CTA block */
+.a3-cta-block { padding: 20px 22px; background: var(--grad); border-radius: 5px; text-align: center; }
+.a3-cta-block strong { display: block; font-size: 13px; font-weight: 800; letter-spacing: .5px; color: #faf7f2; text-transform: uppercase; margin-bottom: 4px; }
+.a3-cta-block span { font-size: 10.5px; color: rgba(250,247,242,.65); }
+
+.a3-bottom {
+  display: flex; align-items: center; justify-content: space-between; margin-top: 16px;
+}
+.a3-brand { font-size: 9px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(243,237,227,.2); }
+.a3-url { font-size: 10px; color: rgba(168,136,42,.5); letter-spacing: .3px; }
+</style>
+</head>
+<body>
+
+
+<!-- ══ AD 1 — FEED ══ -->
+<div class="section-label">Ad 1 · Feed 1:1 · Situação incômoda · Fundo escuro</div>
+<div class="feed a1">
+  <div class="a1-glow"></div>
+  <div class="a1-body">
+
+    <div class="a1-tag">
+      <div class="a1-tag-dot"></div>
+      <span>Donos de clínica de estética</span>
+    </div>
+
+    <div class="a1-h1">Você respondeu<br>o lead. <em>11 horas<br>depois.</em></div>
+    <div class="a1-sub">Não é culpa da recepcionista.<br>É o processo que quebra toda vez.</div>
+
+    <div class="a1-tl">
+      <div class="a1-tl-row">
+        <div class="a1-tl-dot">
+          <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+        </div>
+        <div class="a1-tl-txt">
+          <div class="a1-tl-time">21h 47 — Lead clica no anúncio</div>
+          <div class="a1-tl-main">Pergunta preço do bioestimulador. Manda áudio.</div>
+          <div class="a1-tl-detail">Perfil: mulher 38 anos, Rio de Janeiro, 3 procedimentos/ano.</div>
+        </div>
+      </div>
+      <div class="a1-tl-row">
+        <div class="a1-tl-dot">
+          <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z"/></svg>
+        </div>
+        <div class="a1-tl-txt">
+          <div class="a1-tl-time">09h 12 — Recepcionista abre as mensagens</div>
+          <div class="a1-tl-main">Responde: "Oi! Tudo bem? Aqui é a clínica…"</div>
+          <div class="a1-tl-detail">Enquanto isso: 3 presenciais, 2 telefonemas, agenda aberta.</div>
+        </div>
+      </div>
+      <div class="a1-tl-row dead">
+        <div class="a1-tl-dot">
+          <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
+        </div>
+        <div class="a1-tl-txt">
+          <div class="a1-tl-time">11h 53 — Resposta dela</div>
+          <div class="a1-tl-main">"Já agendei em outro lugar. Obrigada!"</div>
+          <div class="a1-tl-detail">R$ 2.400 de ticket médio. 3 procedimentos/ano. Perdida.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="a1-bottom">
+      <span class="a1-brand">EstéticaFlow</span>
+      <div class="a1-cta">Calcule sua perda →</div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══ AD 2 — FEED ══ -->
+<div class="section-label">Ad 2 · Feed 1:1 · Dado que dói · Fundo claro</div>
+<div class="feed a2">
+  <div class="a2-stripe"></div>
+  <div class="a2-body">
+
+    <div class="a2-eyebrow">Benchmark real do setor</div>
+
+    <div class="a2-h1">Você investe em tráfego.<br>Sua clínica converte <em>8%</em><br>dos leads em pacientes.</div>
+
+    <div class="a2-cols">
+      <div class="a2-col bad">
+        <div class="a2-col-head">Sem processo</div>
+        <div class="a2-metric">
+          <div class="a2-val">8%</div>
+          <div class="a2-lbl">lead → agendado</div>
+        </div>
+        <div class="a2-metric">
+          <div class="a2-val">+4h</div>
+          <div class="a2-lbl">tempo de resposta</div>
+        </div>
+        <div class="a2-metric">
+          <div class="a2-val">65%</div>
+          <div class="a2-lbl">leads some sem retorno</div>
+        </div>
+      </div>
+      <div class="a2-col good">
+        <div class="a2-col-head">Com processo</div>
+        <div class="a2-metric">
+          <div class="a2-val">31%</div>
+          <div class="a2-lbl">lead → agendado</div>
+        </div>
+        <div class="a2-metric">
+          <div class="a2-val">5 seg</div>
+          <div class="a2-lbl">tempo de resposta</div>
+        </div>
+        <div class="a2-metric">
+          <div class="a2-val">−70%</div>
+          <div class="a2-lbl">queda em perda de lead</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="a2-loss">
+      <div class="a2-loss-num">R$ 18.400</div>
+      <div class="a2-loss-txt">
+        <strong>perdidos este mês</strong><br>
+        estimativa para clínica com 80 leads e ticket R$ 2.400
+      </div>
+    </div>
+
+    <div class="a2-note">
+      <strong>O problema não é o lead.</strong> Você já tem o volume.<br>
+      É o que acontece nos primeiros 5 minutos após o clique.
+    </div>
+
+    <div class="a2-bottom">
+      <span class="a2-brand">EstéticaFlow</span>
+      <span class="a2-cta-link">Calcule o seu número →</span>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══ AD 3 — STORY ══ -->
+<div class="section-label">Ad 3 · Story 9:16 · Promessa + CTA direto</div>
+<div class="story a3">
+  <div class="a3-glow"></div>
+  <div class="a3-body">
+
+    <div class="a3-pill">
+      <span>Clínicas de estética · 45 dias</span>
+    </div>
+
+    <div class="a3-pre">O que sua clínica pode ter:</div>
+    <div class="a3-h1">Mais pacientes<br>agendados.<br><strong>Mesmo tráfego.<br>Mesmo time.</strong></div>
+
+    <div class="a3-grid">
+      <div class="a3-card">
+        <div class="a3-card-val">5 seg</div>
+        <div class="a3-card-lbl">resposta ao lead, 24h/dia</div>
+      </div>
+      <div class="a3-card">
+        <div class="a3-card-val">31%</div>
+        <div class="a3-card-lbl">conversão lead → agendamento</div>
+      </div>
+      <div class="a3-card">
+        <div class="a3-card-val">−68%</div>
+        <div class="a3-card-lbl">no-show com confirmação automática</div>
+      </div>
+      <div class="a3-card">
+        <div class="a3-card-val">3,2×</div>
+        <div class="a3-card-lbl">retorno sobre o tráfego investido</div>
+      </div>
+    </div>
+
+    <div class="a3-sep"></div>
+
+    <div class="a3-proof">
+      Não prometemos <em>mais vendas</em>.<br>
+      Prometemos <em>agenda lotada</em>, follow-up<br>
+      automático e saber qual lead fecha<br>
+      antes de você ligar.
+    </div>
+
+    <div class="a3-quote">
+      <div class="a3-quote-text">"Tinha 120 leads por mês e convertia 7. Hoje converto 34. Sem contratar ninguém."</div>
+      <div class="a3-quote-author">— Dra. Camila R., Harmonização Facial · SP</div>
+    </div>
+
+    <div class="a3-cta-block">
+      <strong>Calcule seu potencial grátis</strong>
+      <span>2 min · Diagnóstico personalizado · Sem compromisso</span>
+    </div>
+
+    <div class="a3-bottom">
+      <span class="a3-brand">EstéticaFlow</span>
+      <span class="a3-url">escalacomia.com.br</span>
+    </div>
+
+  </div>
+</div>
+
+
+</body>
+</html>
