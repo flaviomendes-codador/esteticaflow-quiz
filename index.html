@@ -768,32 +768,22 @@ body {
   <!-- ===== STEP 2 ===== -->
   <div class="step" id="step2">
     <div class="step-dots-wrap" id="dots2"></div>
-    <h2>Qual é o foco principal da sua clínica hoje?</h2>
-    <p class="sub">Cada especialidade perde leads de um jeito diferente. Isso torna o seu diagnóstico mais preciso.</p>
+    <h2>Sua clínica tem anúncios rodando hoje?</h2>
+    <p class="sub">Meta Ads, Google Ads ou qualquer canal pago. Isso define como calculamos o seu potencial.</p>
     <div class="options">
-      <div class="option" onclick="selAuto('nicho','harmonizacao',this,3)">
-        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z"/><path d="M19.5 3l-.94 2.69-2.69.94 2.69.94.94 2.69.94-2.69 2.69-.94-2.69-.94L19.5 3Z"/></svg></div>
-        <div class="option-text"><strong>Harmonização Facial</strong><span>Botox, preenchimento, fios, bioestimuladores</span></div>
+      <div class="option" onclick="selAuto('temAds','sim',this,3)">
+        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941"/></svg></div>
+        <div class="option-text"><strong>Sim, tenho campanhas ativas</strong><span>Já invisto em tráfego pago e gero leads pelos anúncios</span></div>
         <div class="option-check">✓</div>
       </div>
-      <div class="option" onclick="selAuto('nicho','estetica_avancada',this,3)">
-        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z"/></svg></div>
-        <div class="option-text"><strong>Estética Avançada / Laser / Corporal</strong><span>Criolipólise, radiofrequência, sculptra, laser</span></div>
+      <div class="option" onclick="selAuto('temAds','nao',this,3)">
+        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636"/></svg></div>
+        <div class="option-text"><strong>Não, meus leads vêm só do orgânico</strong><span>Instagram, indicações ou busca sem investimento em ads</span></div>
         <div class="option-check">✓</div>
       </div>
-      <div class="option" onclick="selAuto('nicho','spa_medico',this,3)">
-        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z"/></svg></div>
-        <div class="option-text"><strong>Spa Médico / Clínica Completa</strong><span>Mix de procedimentos estéticos e bem-estar</span></div>
-        <div class="option-check">✓</div>
-      </div>
-      <div class="option" onclick="selAuto('nicho','solo',this,3)">
-        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg></div>
-        <div class="option-text"><strong>Consultório Solo</strong><span>Biomédico, enfermeiro ou médico esteta individual</span></div>
-        <div class="option-check">✓</div>
-      </div>
-      <div class="option" onclick="selAuto('nicho','pele',this,3)">
-        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12.75 3.03v.568c0 .334.148.65.405.864l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 0 1-1.161.886l-.143.048a1.107 1.107 0 0 0-.57 1.664c.369.555.169 1.307-.427 1.605L9 13.125l.423 1.059a.956.956 0 0 1-1.652.928l-.679-.906a1.125 1.125 0 0 0-1.906.172L4.5 15.75l-.612.153M12.75 3.031a9 9 0 0 0-8.862 12.872M12.75 3.031a9 9 0 0 1 6.69 14.036m0 0-.177-.529A2.25 2.25 0 0 0 17.128 15H16.5l-.324-.324a1.453 1.453 0 0 0-2.328.377l-.036.073a1.586 1.586 0 0 1-.982.816l-.99.282c-.55.157-.894.702-.8 1.267l.073.438c.08.474.49.821.97.821.846 0 1.598.542 1.865 1.345l.215.643m5.276-3.67a9.012 9.012 0 0 1-5.276 3.67m0 0a9 9 0 0 1-10.275-4.835M15.75 9c0 .896-.393 1.7-1.016 2.25"/></svg></div>
-        <div class="option-text"><strong>Skincare Clínico / Estética de Pele</strong><span>Peelings, limpeza de pele, tratamentos faciais</span></div>
+      <div class="option" onclick="selAuto('temAds','pausado',this,3)">
+        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15.75 5.25v13.5m-7.5-13.5v13.5"/></svg></div>
+        <div class="option-text"><strong>Já tive, mas pausei</strong><span>Tive campanhas no passado mas hoje não estou rodando</span></div>
         <div class="option-check">✓</div>
       </div>
     </div>
@@ -1172,43 +1162,17 @@ body {
 </div><!-- /container -->
 
 <script>
-const A = { name:'', nicho:'', leads:0, resposta:'', objetivos:[], controle:'', ticket:0 };
+const A = { name:'', temAds:'', leads:0, resposta:'', equipe:'', urgencia:'', ticket:0 };
 const TOTAL = 7;
 let currentStep = 0;
 
-const nichoICP = {
-  harmonizacao: {
-    label: 'Harmonização Facial', produto: 'EstéticaFlow IA — Harmonização',
-    convBase: 0.074, convSist: 0.22, perdaPlus: 0.08
-  },
-  estetica_avancada: {
-    label: 'Estética Avançada', produto: 'EstéticaFlow IA — Tratamentos Avançados',
-    convBase: 0.09, convSist: 0.22, perdaPlus: 0
-  },
-  spa_medico: {
-    label: 'Spa Médico', produto: 'EstéticaFlow IA — Clínica Completa',
-    convBase: 0.10, convSist: 0.24, perdaPlus: -0.05
-  },
-  solo: {
-    label: 'Consultório Solo', produto: 'EstéticaFlow IA — Profissional Solo',
-    convBase: 0.07, convSist: 0.20, perdaPlus: 0.12
-  },
-  pele: {
-    label: 'Estética de Pele', produto: 'EstéticaFlow IA — Skincare Clínico',
-    convBase: 0.10, convSist: 0.22, perdaPlus: -0.05
-  }
+const temAdsConv = {
+  'sim':     { convBase: 0.09, convSist: 0.22 },
+  'pausado': { convBase: 0.08, convSist: 0.20 },
+  'nao':     { convBase: 0.07, convSist: 0.19 }
 };
 
 const perdaResposta = { '5min':0.10, '1h':0.28, '4h':0.55, 'depois':0.75 };
-
-const objLabel = {
-  resposta_rapida: 'Responder todo lead em minutos — 24h por dia',
-  parar_perder:    'Converter mais leads em pacientes agendados',
-  followup:        'Reativar quem pediu preço e sumiu',
-  escalar:         'Crescer o faturamento sem aumentar equipe',
-  previsibilidade: 'Ter previsibilidade e controle total do faturamento',
-  noshow:          'Lotar a agenda e reduzir no-show'
-};
 
 async function captureAndRedirect() {
   const phone = document.getElementById('ctaPhone').value.trim();
