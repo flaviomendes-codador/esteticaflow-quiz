@@ -856,42 +856,30 @@ body {
   <!-- ===== STEP 5 ===== -->
   <div class="step" id="step5">
     <div class="step-dots-wrap" id="dots5"></div>
-    <h2>O que você quer conquistar na sua operação nos próximos 45 dias?</h2>
-    <p class="sub"><strong>Escolha até 3</strong> que mais refletem onde você quer chegar.</p>
-    <div class="multi-hint">Selecione até 3 opções — depois clique em continuar</div>
+    <h2>Quantas pessoas fazem o atendimento de leads na sua clínica?</h2>
+    <p class="sub">Contato inicial, qualificação, resposta de WhatsApp, agendamento.</p>
     <div class="options">
-      <div class="option" onclick="multiSel('objetivos','resposta_rapida',this,3)">
-        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z"/></svg></div>
-        <div class="option-text"><strong>Responder todo lead em minutos — 24h por dia</strong><span>Sem depender de recepcionista ou de estar disponível</span></div>
+      <div class="option" onclick="selAuto('equipe','eu',this,6)">
+        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg></div>
+        <div class="option-text"><strong>Só eu mesmo</strong><span>Faço tudo: atendo, agenda e trato o paciente</span></div>
         <div class="option-check">✓</div>
       </div>
-      <div class="option" onclick="multiSel('objetivos','parar_perder',this,3)">
-        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941"/></svg></div>
-        <div class="option-text"><strong>Converter mais leads em pacientes agendados</strong><span>Parar de perder consulta para quem respondeu primeiro</span></div>
+      <div class="option" onclick="selAuto('equipe','1',this,6)">
+        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg></div>
+        <div class="option-text"><strong>1 secretária ou recepcionista</strong><span>Uma pessoa cuida de todo o atendimento</span></div>
         <div class="option-check">✓</div>
       </div>
-      <div class="option" onclick="multiSel('objetivos','followup',this,3)">
-        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"/></svg></div>
-        <div class="option-text"><strong>Reativar quem pediu preço e sumiu</strong><span>Follow-up automático recuperando oportunidades esquecidas</span></div>
+      <div class="option" onclick="selAuto('equipe','2mais',this,6)">
+        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z"/></svg></div>
+        <div class="option-text"><strong>2 ou mais secretárias</strong><span>Tenho equipe dedicada ao atendimento</span></div>
         <div class="option-check">✓</div>
       </div>
-      <div class="option" onclick="multiSel('objetivos','escalar',this,3)">
-        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/></svg></div>
-        <div class="option-text"><strong>Crescer o faturamento sem aumentar equipe</strong><span>Escalar sem elevar o custo fixo</span></div>
-        <div class="option-check">✓</div>
-      </div>
-      <div class="option" onclick="multiSel('objetivos','previsibilidade',this,3)">
-        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z"/></svg></div>
-        <div class="option-text"><strong>Ter previsibilidade e controle total do faturamento</strong><span>Saber exatamente quantos pacientes vêm e de onde</span></div>
-        <div class="option-check">✓</div>
-      </div>
-      <div class="option" onclick="multiSel('objetivos','noshow',this,3)">
-        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg></div>
-        <div class="option-text"><strong>Lotar a agenda e reduzir no-show</strong><span>Confirmações automáticas, cancelamentos repostos</span></div>
+      <div class="option" onclick="selAuto('equipe','team',this,6)">
+        <div class="option-icon"><svg width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21"/></svg></div>
+        <div class="option-text"><strong>Equipe + coordenador de atendimento</strong><span>Operação estruturada com liderança dedicada</span></div>
         <div class="option-check">✓</div>
       </div>
     </div>
-    <button class="btn-next" id="btnS5" onclick="nextStep()" disabled>Ver meu diagnóstico →</button>
   </div>
 
   <!-- ===== STEP 6 ===== -->
