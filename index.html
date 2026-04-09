@@ -31,8 +31,14 @@
 
   async function saveLeadToSupabase(phone) {
     const utms = getUTMs();
-    const respScore = { '5min': 20, '1h': 50, '4h': 75, 'depois': 95 };
-    const form_score = respScore[A.resposta] || 50;
+    const scoreMap = {
+      temAds:   { sim: 40, pausado: 20, nao: 10 },
+      equipe:   { team: 40, '2mais': 30, '1': 15, eu: 5 },
+      urgencia: { mes: 30, trimestre: 15, pesquisando: 5, nao: 0 }
+    };
+    const form_score = (scoreMap.temAds[A.temAds]    || 10)
+                     + (scoreMap.equipe[A.equipe]     ||  5)
+                     + (scoreMap.urgencia[A.urgencia] ||  0);
 
     const { error } = await _supabase.from('leads').insert({
       tenant_id:    TENANT_ID,
@@ -40,12 +46,12 @@
       whatsapp:     phone,
       form_score:   form_score,
       form_answers: {
-        nicho:     A.nicho,
-        leads:     A.leads,
-        ticket:    A.ticket,
-        resposta:  A.resposta,
-        objetivos: A.objetivos,
-        controle:  A.controle,
+        temAds:   A.temAds,
+        leads:    A.leads,
+        ticket:   A.ticket,
+        resposta: A.resposta,
+        equipe:   A.equipe,
+        urgencia: A.urgencia,
       },
       lgpd_consent: true,
       lgpd_consent_at: new Date().toISOString(),
