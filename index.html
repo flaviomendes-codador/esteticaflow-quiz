@@ -1267,11 +1267,11 @@ function calcular() {
 }
 
 function buildResult() {
-  const icp    = nichoICP[A.nicho] || nichoICP['harmonizacao'];
-  const leads  = parseInt(A.leads)  || 55;
-  const ticket = parseInt(A.ticket) || 2500;
+  const icp    = temAdsConv[A.temAds] || temAdsConv['nao'];
+  const leads  = parseInt(A.leads)    || 55;
+  const ticket = parseInt(A.ticket)   || 2500;
   const pBase  = perdaResposta[A.resposta] || 0.55;
-  const pResp  = Math.min(0.92, pBase + icp.perdaPlus);
+  const pResp  = Math.min(0.92, pBase);
 
   const leadsPerdidos    = Math.max(1, Math.round(leads * pResp));
   const clientesPerdidos = Math.max(1, Math.round(leadsPerdidos * icp.convBase));
@@ -1286,11 +1286,18 @@ function buildResult() {
 
   const fmt = n => 'R$ ' + n.toLocaleString('pt-BR');
 
+  const urgenciaTexto = {
+    mes:         'implementar ainda este mês',
+    trimestre:   'implementar nos próximos meses',
+    pesquisando: 'entender suas opções com clareza',
+    nao:         'transformar sua operação quando estiver pronto'
+  };
+
   document.getElementById('resultTitle').innerHTML =
-    `<em>${A.name}</em>, aqui está o diagnóstico real da sua ${icp.label}`;
+    `<em>${A.name}</em>, aqui está o diagnóstico real da sua clínica`;
   document.getElementById('resultSub').textContent =
     'Calculamos com base nos dados que você informou — volume de leads, ticket médio e tempo de resposta. O que você vai ver abaixo é o dinheiro real que está saindo pela porta da sua clínica todo mês.';
-  document.getElementById('produtoBadge').textContent = icp.produto;
+  document.getElementById('produtoBadge').textContent = 'EstéticaFlow IA — Diagnóstico Personalizado';
 
   document.getElementById('lossVal').textContent       = fmt(receitaPerdida) + '/mês';
   document.getElementById('gainVal').textContent       = fmt(potencialMensal) + '/mês';
@@ -1302,14 +1309,13 @@ function buildResult() {
   document.getElementById('finDesc').innerHTML =
     `Dos <strong>${leads} leads que chegam por mês</strong> na sua clínica, <strong>${leadsPerdidos} somem sem virar paciente</strong> — é o que acontece quando o atendimento demora ou não existe fora do horário comercial. Com apenas ~${Math.round(icp.convBase*100)}% fechando hoje, isso representa <strong>${clientesPerdidos} pacientes perdidos × ${fmt(ticket)} de ticket = ${fmt(receitaPerdida)} que você deixa na mesa todo mês</strong>. Com o processo certo, essa taxa sobe para ~${Math.round(icp.convSist*100)}% — gerando <strong>+${clientesNovos} pacientes extras por mês</strong>. Em 12 meses, o impacto acumulado na sua clínica chega a <strong>${fmt(potencial12m)}</strong>.`;
 
-  document.getElementById('goalsList').innerHTML = A.objetivos.length > 0
-    ? A.objetivos.map(o => `<div class="goal-item"><span class="goal-check">—</span>${objLabel[o]}</div>`).join('')
-    : '<div class="goal-item"><span class="goal-check">—</span>Otimizar a conversão de leads da clínica</div>';
+  document.getElementById('goalsList').innerHTML =
+    `<div class="goal-item"><span class="goal-check">—</span>Parar de perder leads fora do horário comercial</div>
+     <div class="goal-item"><span class="goal-check">—</span>Qualificar e priorizar quem está pronto para agendar</div>
+     <div class="goal-item"><span class="goal-check">—</span>Crescer o faturamento sem aumentar equipe</div>`;
 
-  const objs   = A.objetivos.slice(0,2).map(o => objLabel[o].toLowerCase());
-  const objStr = objs.length > 1 ? objs.join(' e ') : (objs[0] || 'transformar sua operação');
   document.getElementById('ctaSub').textContent =
-    `Em 20 minutos de call, você recebe um diagnóstico completo da sua operação e tem a oportunidade de conhecer o sistema que vai ${objStr} — com um plano claro para implementar ainda este mês.`;
+    `Em 20 minutos de call, você recebe um diagnóstico completo da sua operação e tem a oportunidade de conhecer o sistema que vai ${urgenciaTexto[A.urgencia] || 'implementar ainda este mês'} — com um plano claro para transformar seus leads em pacientes.`;
 }
 </script>
 </body>
