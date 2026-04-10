@@ -29,7 +29,44 @@ src="https://www.facebook.com/tr?id=30205371289109399&ev=PageView&noscript=1"/><
   const SUPABASE_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImptcmN2b2huZWZ0YWp0dXBlc21iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5MzY1NjQsImV4cCI6MjA4OTUxMjU2NH0.E6bWfQxFXn5ovYjt-1VpNFfTYIlNZqzFBEB3bCeuh0E';
   const TENANT_ID     = 'f1a75000-cafe-4000-8000-ca1c1ac00001';
   const CALENDLY_URL  = 'https://calendly.com/agenciaf-mendes/new-meeting';
+  const META_PIXEL_ID = '30205371289109399';
+  const META_API_TOKEN = 'EAAL2I9dYE6wBRJq0UjGrQ3FW5xzzgbv35kw2El1Xo0hGdPFXod6nmckgiaF7lZCIZB69xcHmDycyCqyZCXUWKqdouEQLKQVFF5k5XlryGQyeZBv1xcktwBZCU81G2Ep0CyugzfV3l2lEPZCzjKtbzjPtHZAcjmyAwxrZCqGZAWF7Je4BPb1nprclb3mifemfyZCD9HiQZDZD';
   // ──────────────────────────────────────────────────────────────────────────
+
+  async function sha256(str) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  async function sendMetaCAPI(eventName, phone, eventId) {
+    const phoneNorm = phone.replace(/\D/g, '');
+    const phoneHash = await sha256(phoneNorm);
+    const payload = {
+      data: [{
+        event_name: eventName,
+        event_time: Math.floor(Date.now() / 1000),
+        event_id: eventId,
+        event_source_url: window.location.href,
+        action_source: 'website',
+        user_data: {
+          ph: [phoneHash],
+          client_user_agent: navigator.userAgent,
+          fbc: (document.cookie.match(/_fbc=([^;]+)/) || [])[1] || undefined,
+          fbp: (document.cookie.match(/_fbp=([^;]+)/) || [])[1] || undefined,
+        }
+      }],
+      access_token: META_API_TOKEN
+    };
+    try {
+      await fetch(`https://graph.facebook.com/v19.0/${META_PIXEL_ID}/events`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+    } catch (e) {
+      console.warn('[CAPI] Falha ao enviar evento:', e);
+    }
+  }
 
   const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
@@ -1264,7 +1301,9 @@ async function captureAndRedirect() {
 
   await saveLeadToSupabase(phone);
 
-  if (typeof fbq === 'function') fbq('track', 'Lead');
+  const leadEventId = 'lead_' + Date.now() + '_' + Math.random().toString(36).slice(2, 9);
+  if (typeof fbq === 'function') fbq('track', 'Lead', {}, { eventID: leadEventId });
+  sendMetaCAPI('Lead', phone, leadEventId);
 
   document.getElementById('ctaFormWrap').style.display = 'none';
   document.getElementById('ctaSuccess').style.display = 'block';
