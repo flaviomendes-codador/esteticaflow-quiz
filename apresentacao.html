@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EstéticaFlow IA | Apresentação de Vendas</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#faf7f2;
+  --bg-secondary:#f0ebe2;
+  --card:#ffffff;
+  --gold:#a8882a;
+  --gold-mid:#c9a84c;
+  --gold-gradient:linear-gradient(135deg,#a8882a 0%,#c9a84c 100%);
+  --ink:#1a1410;
+  --ink-soft:#5a4f42;
+  --success:#2d6a4f;
+  --shadow:0 2px 16px rgba(168,136,42,.10);
+  --radius-card:12px;
+  --radius-button:3px;
+}
+html,body{height:100%}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  overflow:hidden;
+}
+button{font:inherit}
+.presentation{
+  position:relative;
+  width:100vw;
+  height:100vh;
+  background:var(--bg);
+}
+.deck{
+  position:absolute;
+  inset:0;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .3s ease;
+}
+.deck.is-active{
+  opacity:1;
+  pointer-events:auto;
+}
+.slide{
+  position:absolute;
+  inset:0;
+  display:grid;
+  grid-template-rows:1fr auto;
+  padding:48px 56px 40px;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .3s ease;
+}
+.slide.is-active{
+  opacity:1;
+  pointer-events:auto;
+}
+.slide-shell{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  min-height:0;
+}
+.slide-footer{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:20px;
+  padding-top:24px;
+}
+.slide-footer-right{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-left:auto;
+}
+.progress{
+  color:var(--ink-soft);
+  font-size:14px;
+  font-weight:500;
+  text-transform:lowercase;
+}
+.nav{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.nav button,
+.action-button,
+.cta-button{
+  border:none;
+  cursor:pointer;
+  border-radius:var(--radius-button);
+  transition:transform .2s ease,opacity .2s ease,box-shadow .2s ease;
+}
+.nav button{
+  width:44px;
+  height:44px;
+  background:var(--card);
+  color:var(--gold);
+  box-shadow:var(--shadow);
+  font-size:22px;
+}
+.nav button:hover,
+.action-button:hover,
+.cta-button:hover{transform:translateY(-1px)}
+.nav button:disabled{
+  opacity:.45;
+  cursor:default;
+  transform:none;
+}
+.action-button{
+  min-height:44px;
+  padding:0 20px;
+  background:var(--card);
+  color:var(--gold);
+  box-shadow:var(--shadow);
+  font-size:14px;
+  font-weight:600;
+}
+.cta-button{
+  min-height:54px;
+  padding:0 28px;
+  background:var(--gold-gradient);
+  color:#fff;
+  font-weight:700;
+  letter-spacing:.01em;
+  box-shadow:var(--shadow);
+}
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  width:max-content;
+  padding:10px 14px;
+  border-radius:999px;
+  background:rgba(168,136,42,.10);
+  color:var(--gold);
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+.display{
+  font-family:'Playfair Display',Georgia,serif;
+  letter-spacing:-.03em;
+}
+.muted{color:var(--ink-soft)}
+.hero-slide{
+  background:var(--gold-gradient);
+  color:#fff;
+}
+.hero-slide .slide-shell{
+  align-items:center;
+  text-align:center;
+}
+.hero-mark{
+  font-size:48px;
+  font-weight:600;
+}
+.hero-subtitle{
+  margin-top:18px;
+  font-size:20px;
+  font-weight:300;
+}
+.hero-footnote{
+  font-size:16px;
+  font-weight:400;
+  opacity:.92;
+}
+.overview-slide{
+  background:
+    radial-gradient(circle at top right,rgba(201,168,76,.14),transparent 24%),
+    linear-gradient(180deg,var(--bg) 0%,var(--bg-secondary) 100%);
+}
+.section-title{
+  font-size:36px;
+  color:var(--gold);
+  margin-bottom:28px;
+}
+.module-list{
+  display:grid;
+  gap:18px;
+  max-width:980px;
+}
+.module-item{
+  display:grid;
+  grid-template-columns:46px 1fr;
+  gap:16px;
+  align-items:flex-start;
+  padding:20px 22px;
+  border-radius:var(--radius-card);
+  background:rgba(255,255,255,.72);
+  box-shadow:var(--shadow);
+}
+.module-icon{
+  display:grid;
+  place-items:center;
+  width:46px;
+  height:46px;
+  border-radius:14px;
+  background:rgba(168,136,42,.12);
+  font-size:24px;
+}
+.module-text{
+  font-size:22px;
+  line-height:1.4;
+  color:var(--ink);
+}
+.module-slide{
+  background:linear-gradient(180deg,#fff 0%,#fcfbf8 100%);
+}
+.module-card{
+  display:grid;
+  grid-template-columns:minmax(0,1.35fr) 320px;
+  gap:32px;
+  width:100%;
+  min-height:calc(100vh - 180px);
+  padding:40px 42px;
+  border-left:4px solid var(--gold);
+  border-radius:var(--radius-card);
+  background:var(--card);
+  box-shadow:var(--shadow);
+}
+.module-main{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.module-tag{
+  color:var(--gold);
+  font-size:13px;
+  font-weight:500;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+.module-name{
+  margin-top:18px;
+  font-size:32px;
+  color:var(--ink);
+}
+.module-description{
+  margin-top:18px;
+  max-width:720px;
+  font-size:16px;
+  line-height:1.8;
+  color:var(--ink-soft);
+}
+.price-box{
+  align-self:end;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  padding:28px;
+  border-radius:var(--radius-card);
+  background:linear-gradient(180deg,var(--bg) 0%,var(--bg-secondary) 100%);
+  box-shadow:inset 0 0 0 1px rgba(168,136,42,.10);
+}
+.price-label{
+  font-size:13px;
+  font-weight:600;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+}
+.price-value{
+  margin-top:12px;
+  font-size:28px;
+  font-weight:700;
+  color:var(--ink);
+}
+.anchor-slide{
+  background:linear-gradient(180deg,var(--bg) 0%,#f6f0e7 100%);
+}
+.anchor-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(360px,420px);
+  gap:28px;
+  align-items:stretch;
+}
+.panel{
+  border-radius:var(--radius-card);
+  padding:32px;
+  background:var(--card);
+  box-shadow:var(--shadow);
+}
+.panel-muted{
+  background:linear-gradient(180deg,#f7f4ee 0%,#efe9df 100%);
+}
+.panel-highlight{
+  background:var(--gold-gradient);
+  color:#fff;
+}
+.panel-title{
+  font-size:28px;
+  margin-bottom:22px;
+}
+.line-list{
+  display:grid;
+  gap:14px;
+}
+.line-item{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  font-size:18px;
+  line-height:1.4;
+}
+.line-item span:last-child{
+  white-space:nowrap;
+  font-weight:600;
+}
+.total-row{
+  margin-top:18px;
+  padding-top:18px;
+  border-top:1px solid rgba(26,20,16,.12);
+  color:#8d867c;
+  font-size:24px;
+  font-weight:700;
+  text-decoration:line-through;
+}
+.offer-badge{
+  display:inline-flex;
+  width:max-content;
+  padding:10px 14px;
+  border-radius:999px;
+  background:rgba(255,255,255,.18);
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+.offer-name{
+  margin-top:22px;
+  font-size:34px;
+}
+.offer-price{
+  margin-top:20px;
+  font-size:64px;
+  font-weight:700;
+  line-height:1;
+}
+.offer-copy{
+  margin-top:18px;
+  font-size:20px;
+  font-weight:300;
+}
+.offer-installments{
+  margin-top:10px;
+  font-size:34px;
+  font-weight:700;
+}
+.closing-card{
+  width:min(100%,520px);
+  margin:32px auto 0;
+  padding:28px 30px;
+  border-radius:var(--radius-card);
+  background:rgba(255,255,255,.96);
+  box-shadow:var(--shadow);
+  color:var(--ink);
+}
+.closing-primary{
+  font-size:34px;
+  font-weight:700;
+  color:var(--gold);
+}
+.closing-secondary{
+  margin-top:10px;
+  font-size:22px;
+  color:var(--ink-soft);
+}
+.closing-slide .hero-subtitle{
+  max-width:700px;
+}
+.downsell-slide{
+  background:linear-gradient(180deg,var(--bg) 0%,var(--bg-secondary) 100%);
+}
+.downsell-cover{
+  max-width:860px;
+}
+.downsell-title{
+  margin-top:18px;
+  font-size:38px;
+}
+.downsell-subtitle{
+  margin-top:18px;
+  font-size:18px;
+  font-weight:300;
+  color:var(--ink-soft);
+  line-height:1.7;
+}
+.inclusion-list{
+  display:grid;
+  gap:18px;
+  max-width:920px;
+}
+.inclusion-item{
+  display:grid;
+  grid-template-columns:42px 1fr;
+  gap:16px;
+  align-items:flex-start;
+  padding:18px 20px;
+  border-radius:var(--radius-card);
+  background:var(--card);
+  box-shadow:var(--shadow);
+  font-size:22px;
+  line-height:1.45;
+}
+.downsell-offer-card{
+  width:min(100%,900px);
+  min-height:calc(100vh - 220px);
+  padding:42px;
+  border-left:4px solid var(--gold);
+  border-radius:var(--radius-card);
+  background:var(--card);
+  box-shadow:var(--shadow);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.downsell-offer-title{
+  font-size:36px;
+}
+.downsell-price{
+  margin-top:26px;
+  font-size:48px;
+  font-weight:700;
+  color:var(--gold);
+}
+.downsell-total{
+  margin-top:10px;
+  font-size:24px;
+  color:var(--ink-soft);
+}
+.downsell-cta{
+  margin-top:32px;
+  width:max-content;
+}
+.sr-only{
+  position:absolute;
+  width:1px;
+  height:1px;
+  padding:0;
+  margin:-1px;
+  overflow:hidden;
+  clip:rect(0,0,0,0);
+  white-space:nowrap;
+  border:0;
+}
+@media (max-width:980px){
+  .slide{padding:32px 24px 24px}
+  .module-card,
+  .anchor-grid{grid-template-columns:1fr}
+  .module-card{min-height:auto}
+  .price-box{align-self:stretch}
+  .offer-price{font-size:52px}
+  .section-title{font-size:30px}
+  .module-text,
+  .inclusion-item{font-size:18px}
+  .hero-mark{font-size:40px}
+}
+@media (max-width:640px){
+  .slide-footer{
+    align-items:stretch;
+    flex-direction:column;
+  }
+  .slide-footer-right{
+    margin-left:0;
+    justify-content:space-between;
+  }
+  .nav{
+    order:2;
+  }
+  .progress{
+    order:1;
+  }
+  .hero-mark{font-size:34px}
+  .hero-subtitle{font-size:18px}
+  .module-name,
+  .panel-title,
+  .downsell-title,
+  .downsell-offer-title{font-size:28px}
+  .offer-price{font-size:44px}
+  .offer-installments,
+  .closing-primary,
+  .downsell-price{font-size:32px}
+  .module-card,
+  .downsell-offer-card,
+  .panel{padding:24px}
+}
+</style>
+</head>
+<body>
+<main class="presentation" aria-label="Apresentação de vendas EstéticaFlow IA">
+  <section class="deck is-active" data-deck="principal" data-size="9" aria-label="Deck principal">
+    <article class="slide hero-slide is-active closing-slide" data-slide="1">
+      <div class="slide-shell">
+        <div class="hero-mark display">EstéticaFlow IA</div>
+        <p class="hero-subtitle">Sistema de Implementação — Proposta Personalizada</p>
+      </div>
+      <div class="slide-footer">
+        <div class="hero-footnote">escalacomia.com.br</div>
+        <div class="slide-footer-right">
+          <div class="nav">
+            <button type="button" data-prev aria-label="Slide anterior">←</button>
+            <button type="button" data-next aria-label="Próximo slide">→</button>
+          </div>
+          <div class="progress" aria-live="polite"></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="slide overview-slide" data-slide="2">
+      <div class="slide-shell">
+        <h1 class="section-title display">5 módulos. Uma operação completa.</h1>
+        <div class="module-list">
+          <div class="module-item">
+            <div class="module-icon">🤖</div>
+            <p class="module-text">Atendente IA no WhatsApp — responde em 5 segundos, 24h/7d</p>
+          </div>
+          <div class="module-item">
+            <div class="module-icon">📊</div>
+            <p class="module-text">Lead Scoring automático — classifica quem está pronto para comprar</p>
+          </div>
+          <div class="module-item">
+            <div class="module-icon">🔁</div>
+            <p class="module-text">Follow-up automático — reativa leads frios sem esforço manual</p>
+          </div>
+          <div class="module-item">
+            <div class="module-icon">📈</div>
+            <p class="module-text">Dashboard em tempo real — leads, conversão, receita por canal</p>
+          </div>
+          <div class="module-item">
+            <div class="module-icon">📅</div>
+            <p class="module-text">Confirmações + anti-no-show — agenda cheia, sem remarcações manuais</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <div></div>
+        <div class="slide-footer-right">
+          <div class="nav">
+            <button type="button" data-prev aria-label="Slide anterior">←</button>
+            <button type="button" data-next aria-label="Próximo slide">→</button>
+          </div>
+          <div class="progress" aria-live="polite"></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="slide module-slide" data-slide="3">
+      <div class="slide-shell">
+        <div class="module-card">
+          <div class="module-main">
+            <div class="module-tag">MÓDULO 01 de 05</div>
+            <h2 class="module-name display">Atendente IA WhatsApp</h2>
+            <p class="module-description">Responde leads automaticamente em segundos. Qualifica, agenda e nunca perde um contato — 24 horas por dia, 7 dias por semana.</p>
+          </div>
+          <aside class="price-box">
+            <div class="price-label">Se contratado separado</div>
+            <div class="price-value">R$ 2.997</div>
+          </aside>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <div></div>
+        <div class="slide-footer-right">
+          <div class="nav">
+            <button type="button" data-prev aria-label="Slide anterior">←</button>
+            <button type="button" data-next aria-label="Próximo slide">→</button>
+          </div>
+          <div class="progress" aria-live="polite"></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="slide module-slide" data-slide="4">
+      <div class="slide-shell">
+        <div class="module-card">
+          <div class="module-main">
+            <div class="module-tag">MÓDULO 02 de 05</div>
+            <h2 class="module-name display">Lead Scoring</h2>
+            <p class="module-description">Classifica cada lead por probabilidade de fechamento antes do contato humano. Seu time foca só em quem já está pronto.</p>
+          </div>
+          <aside class="price-box">
+            <div class="price-label">Se contratado separado</div>
+            <div class="price-value">R$ 1.497</div>
+          </aside>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <div></div>
+        <div class="slide-footer-right">
+          <div class="nav">
+            <button type="button" data-prev aria-label="Slide anterior">←</button>
+            <button type="button" data-next aria-label="Próximo slide">→</button>
+          </div>
+          <div class="progress" aria-live="polite"></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="slide module-slide" data-slide="5">
+      <div class="slide-shell">
+        <div class="module-card">
+          <div class="module-main">
+            <div class="module-tag">MÓDULO 03 de 05</div>
+            <h2 class="module-name display">Follow-up Automático</h2>
+            <p class="module-description">Sequência de reativação para leads frios. Recupera contatos que pararam de responder — sem esforço manual do atendimento.</p>
+          </div>
+          <aside class="price-box">
+            <div class="price-label">Se contratado separado</div>
+            <div class="price-value">R$ 1.997</div>
+          </aside>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <div></div>
+        <div class="slide-footer-right">
+          <div class="nav">
+            <button type="button" data-prev aria-label="Slide anterior">←</button>
+            <button type="button" data-next aria-label="Próximo slide">→</button>
+          </div>
+          <div class="progress" aria-live="polite"></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="slide module-slide" data-slide="6">
+      <div class="slide-shell">
+        <div class="module-card">
+          <div class="module-main">
+            <div class="module-tag">MÓDULO 04 de 05</div>
+            <h2 class="module-name display">Dashboard em Tempo Real</h2>
+            <p class="module-description">Visão completa de leads por canal, taxa de conversão e receita estimada. Decisão de onde investir baseada em dados, não intuição.</p>
+          </div>
+          <aside class="price-box">
+            <div class="price-label">Se contratado separado</div>
+            <div class="price-value">R$ 1.497</div>
+          </aside>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <div></div>
+        <div class="slide-footer-right">
+          <div class="nav">
+            <button type="button" data-prev aria-label="Slide anterior">←</button>
+            <button type="button" data-next aria-label="Próximo slide">→</button>
+          </div>
+          <div class="progress" aria-live="polite"></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="slide module-slide" data-slide="7">
+      <div class="slide-shell">
+        <div class="module-card">
+          <div class="module-main">
+            <div class="module-tag">MÓDULO 05 de 05</div>
+            <h2 class="module-name display">Confirmações + Anti-No-Show</h2>
+            <p class="module-description">Confirmações automáticas de consulta e reposição de cancelamentos. Redução de no-show de até 68% — agenda sempre cheia.</p>
+          </div>
+          <aside class="price-box">
+            <div class="price-label">Se contratado separado</div>
+            <div class="price-value">R$ 997</div>
+          </aside>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <div></div>
+        <div class="slide-footer-right">
+          <div class="nav">
+            <button type="button" data-prev aria-label="Slide anterior">←</button>
+            <button type="button" data-next aria-label="Próximo slide">→</button>
+          </div>
+          <div class="progress" aria-live="polite"></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="slide anchor-slide" data-slide="8">
+      <div class="slide-shell">
+        <div class="anchor-grid">
+          <section class="panel panel-muted">
+            <h2 class="panel-title display">Se você contratasse separado</h2>
+            <div class="line-list">
+              <div class="line-item"><span>Atendente IA WhatsApp</span><span>R$ 2.997</span></div>
+              <div class="line-item"><span>Lead Scoring</span><span>R$ 1.497</span></div>
+              <div class="line-item"><span>Follow-up automático</span><span>R$ 1.997</span></div>
+              <div class="line-item"><span>Dashboard em tempo real</span><span>R$ 1.497</span></div>
+              <div class="line-item"><span>Confirmações + anti-no-show</span><span>R$ 997</span></div>
+              <div class="line-item"><span>Setup e configuração personalizada</span><span>R$ 2.500</span></div>
+            </div>
+            <div class="total-row">Total: R$ 11.485</div>
+          </section>
+
+          <section class="panel panel-highlight">
+            <div class="offer-badge">PACOTE COMPLETO</div>
+            <h2 class="offer-name display">EstéticaFlow IA</h2>
+            <div class="offer-price">R$ 10.000</div>
+            <p class="offer-copy">Fechando hoje na call:</p>
+            <div class="offer-installments">12x de R$ 583</div>
+          </section>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <div></div>
+        <div class="slide-footer-right">
+          <div class="nav">
+            <button type="button" data-prev aria-label="Slide anterior">←</button>
+            <button type="button" data-next aria-label="Próximo slide">→</button>
+          </div>
+          <div class="progress" aria-live="polite"></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="slide hero-slide closing-slide" data-slide="9">
+      <div class="slide-shell">
+        <h2 class="hero-mark display">Pronto para começar?</h2>
+        <p class="hero-subtitle">Implementação completa em 10 a 15 dias. Você só aprova.</p>
+        <div class="closing-card">
+          <div class="closing-primary">Fechando hoje: 12x de R$ 583</div>
+          <div class="closing-secondary">À vista: R$ 10.000</div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <div class="hero-footnote">escalacomia.com.br</div>
+        <div class="slide-footer-right">
+          <button type="button" class="action-button" data-show-downsell>Ver Downsell</button>
+          <div class="nav">
+            <button type="button" data-prev aria-label="Slide anterior">←</button>
+            <button type="button" data-next aria-label="Próximo slide">→</button>
+          </div>
+          <div class="progress" aria-live="polite"></div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section class="deck" data-deck="downsell" data-size="3" aria-label="Deck downsell">
+    <article class="slide downsell-slide is-active" data-slide="1">
+      <div class="slide-shell">
+        <div class="downsell-cover">
+          <div class="eyebrow">PARA QUEM QUER COMEÇAR COM O ESSENCIAL</div>
+          <h2 class="downsell-title display">Assistente de Vendas Personalizada</h2>
+          <p class="downsell-subtitle">O primeiro passo para uma operação que não perde leads.</p>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <button type="button" class="action-button" data-back-main>Voltar ao principal</button>
+        <div class="slide-footer-right">
+          <div class="nav">
+            <button type="button" data-prev aria-label="Slide anterior">←</button>
+            <button type="button" data-next aria-label="Próximo slide">→</button>
+          </div>
+          <div class="progress" aria-live="polite"></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="slide downsell-slide" data-slide="2">
+      <div class="slide-shell">
+        <h2 class="section-title display">O que está incluído</h2>
+        <div class="inclusion-list">
+          <div class="inclusion-item"><div>🤖</div><p>Atendente IA treinada com o perfil da sua clínica</p></div>
+          <div class="inclusion-item"><div>⚡</div><p>Resposta automática em segundos via WhatsApp</p></div>
+          <div class="inclusion-item"><div>📋</div><p>Qualificação e triagem do lead antes do atendimento humano</p></div>
+          <div class="inclusion-item"><div>🔧</div><p>Setup e configuração completa (você só aprova)</p></div>
+          <div class="inclusion-item"><div>📞</div><p>Suporte nos primeiros 30 dias de operação</p></div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <div></div>
+        <div class="slide-footer-right">
+          <div class="nav">
+            <button type="button" data-prev aria-label="Slide anterior">←</button>
+            <button type="button" data-next aria-label="Próximo slide">→</button>
+          </div>
+          <div class="progress" aria-live="polite"></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="slide" data-slide="3">
+      <div class="slide-shell">
+        <div class="downsell-offer-card">
+          <h2 class="downsell-offer-title display">Assistente de Vendas Personalizada</h2>
+          <div class="downsell-price">12x de R$ 250</div>
+          <p class="downsell-total">Total: R$ 3.000 — sem juros</p>
+          <button type="button" class="cta-button downsell-cta">Quero começar com a Assistente</button>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <div></div>
+        <div class="slide-footer-right">
+          <div class="nav">
+            <button type="button" data-prev aria-label="Slide anterior">←</button>
+            <button type="button" data-next aria-label="Próximo slide">→</button>
+          </div>
+          <div class="progress" aria-live="polite"></div>
+        </div>
+      </div>
+    </article>
+  </section>
+</main>
+
+<script>
+const state = {
+  activeDeck: 'principal',
+  currentIndex: {
+    principal: 0,
+    downsell: 0
+  }
+};
+
+const decks = {
+  principal: {
+    root: document.querySelector('[data-deck="principal"]'),
+    slides: Array.from(document.querySelectorAll('[data-deck="principal"] .slide'))
+  },
+  downsell: {
+    root: document.querySelector('[data-deck="downsell"]'),
+    slides: Array.from(document.querySelectorAll('[data-deck="downsell"] .slide'))
+  }
+};
+
+function updateControls(deckName) {
+  const deck = decks[deckName];
+  const index = state.currentIndex[deckName];
+  deck.slides.forEach((slide, slideIndex) => {
+    slide.classList.toggle('is-active', slideIndex === index);
+    const prevButton = slide.querySelector('[data-prev]');
+    const nextButton = slide.querySelector('[data-next]');
+    const progress = slide.querySelector('.progress');
+    if (prevButton) {
+      prevButton.disabled = slideIndex === 0;
+    }
+    if (nextButton) {
+      nextButton.disabled = slideIndex === deck.slides.length - 1;
+    }
+    if (progress) {
+      progress.textContent = `slide ${slideIndex + 1} de ${deck.slides.length}`;
+    }
+  });
+}
+
+function syncDecks() {
+  Object.entries(decks).forEach(([deckName, deck]) => {
+    const isActive = deckName === state.activeDeck;
+    deck.root.classList.toggle('is-active', isActive);
+    deck.root.setAttribute('aria-hidden', String(!isActive));
+    updateControls(deckName);
+  });
+}
+
+function goToSlide(nextIndex) {
+  const deck = decks[state.activeDeck];
+  const bounded = Math.max(0, Math.min(nextIndex, deck.slides.length - 1));
+  state.currentIndex[state.activeDeck] = bounded;
+  updateControls(state.activeDeck);
+}
+
+function moveSlide(direction) {
+  goToSlide(state.currentIndex[state.activeDeck] + direction);
+}
+
+function switchDeck(nextDeck, startingIndex = 0) {
+  state.activeDeck = nextDeck;
+  state.currentIndex[nextDeck] = startingIndex;
+  syncDecks();
+}
+
+document.querySelectorAll('[data-prev]').forEach((button) => {
+  button.addEventListener('click', () => moveSlide(-1));
+});
+
+document.querySelectorAll('[data-next]').forEach((button) => {
+  button.addEventListener('click', () => moveSlide(1));
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'ArrowLeft') {
+    event.preventDefault();
+    moveSlide(-1);
+  }
+  if (event.key === 'ArrowRight') {
+    event.preventDefault();
+    moveSlide(1);
+  }
+});
+
+document.querySelector('[data-show-downsell]').addEventListener('click', () => {
+  switchDeck('downsell', 0);
+});
+
+document.querySelector('[data-back-main]').addEventListener('click', () => {
+  switchDeck('principal', 8);
+});
+
+syncDecks();
+</script>
+</body>
+</html>
