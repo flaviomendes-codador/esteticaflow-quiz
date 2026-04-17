@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposta Elisa | EstéticaFlow IA</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#faf7f2;
+  --card:#ffffff;
+  --highlight:#f0ebe2;
+  --gold:#a8882a;
+  --gold-mid:#c9a84c;
+  --gold-gradient:linear-gradient(135deg,#a8882a 0%,#c9a84c 100%);
+  --ink:#1a1410;
+  --ink-soft:#5a4f42;
+  --ink-faint:#9a8f82;
+  --green:#2d6a4f;
+  --line:1px solid rgba(168,136,42,0.15);
+  --shadow:0 2px 16px rgba(168,136,42,0.08);
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+}
+.page{
+  width:min(100%,680px);
+  margin:0 auto;
+  padding:24px 24px 0;
+}
+.section{
+  opacity:0;
+  transform:translateY(16px);
+  transition:opacity .7s ease,transform .7s ease;
+}
+.section.is-visible{
+  opacity:1;
+  transform:translateY(0);
+}
+.hero{
+  padding:56px 40px;
+  border-radius:12px;
+  background:var(--gold-gradient);
+  text-align:center;
+  color:#fff;
+}
+.hero-tag{
+  display:block;
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.70);
+}
+.hero-kicker{
+  margin-top:14px;
+  font-family:'Playfair Display',Georgia,serif;
+  font-size:18px;
+  font-style:italic;
+  color:rgba(255,255,255,.80);
+}
+.hero-title{
+  margin-top:6px;
+  font-family:'Playfair Display',Georgia,serif;
+  font-size:42px;
+  font-weight:600;
+  line-height:1.02;
+  color:#fff;
+}
+.hero-subtitle{
+  max-width:480px;
+  margin:16px auto 0;
+  font-size:17px;
+  font-weight:300;
+  line-height:1.7;
+  color:rgba(255,255,255,.85);
+}
+.offer{
+  margin-top:20px;
+  padding:32px;
+  border-radius:12px;
+  border-left:3px solid var(--gold);
+  background:var(--card);
+  box-shadow:var(--shadow);
+}
+.offer-tag,.investment-tag{
+  display:block;
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  color:var(--gold);
+}
+.offer-title{
+  margin-top:10px;
+  font-family:'Playfair Display',Georgia,serif;
+  font-size:28px;
+  font-weight:600;
+  color:var(--ink);
+}
+.offer-copy{
+  margin-top:12px;
+  font-size:15px;
+  font-weight:400;
+  line-height:1.7;
+  color:var(--ink-soft);
+}
+.bonus-wrap{
+  margin-top:28px;
+}
+.bonus-title{
+  font-family:'Playfair Display',Georgia,serif;
+  font-size:24px;
+  font-style:italic;
+  text-align:center;
+  color:var(--ink);
+}
+.bonus-subtitle{
+  margin-top:6px;
+  text-align:center;
+  font-size:14px;
+  font-weight:300;
+  color:var(--ink-faint);
+}
+.bonus-list{
+  display:grid;
+  gap:14px;
+  margin-top:22px;
+}
+.bonus-card{
+  position:relative;
+  display:grid;
+  grid-template-columns:40px 1fr;
+  gap:18px;
+  align-items:flex-start;
+  padding:24px 28px;
+  border:var(--line);
+  border-radius:12px;
+  background:var(--card);
+  transition:box-shadow .2s ease,transform .2s ease,opacity .7s ease;
+  opacity:0;
+  transform:translateY(16px);
+}
+.bonus-card.is-visible{
+  opacity:1;
+  transform:translateY(0);
+}
+.bonus-card:hover{
+  box-shadow:0 4px 24px rgba(168,136,42,0.14);
+  transform:translateY(-2px);
+}
+.bonus-icon{
+  font-size:28px;
+  line-height:1;
+}
+.bonus-pill{
+  position:absolute;
+  top:18px;
+  right:18px;
+  padding:2px 8px;
+  border-radius:4px;
+  background:rgba(168,136,42,0.10);
+  color:var(--gold);
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.03em;
+}
+.bonus-heading{
+  font-size:16px;
+  font-weight:600;
+  color:var(--ink);
+}
+.bonus-copy{
+  margin-top:8px;
+  font-size:14px;
+  font-weight:400;
+  line-height:1.6;
+  color:var(--ink-soft);
+}
+.investment{
+  margin-top:28px;
+  padding:40px;
+  border-radius:16px;
+  background:var(--highlight);
+  text-align:center;
+}
+.investment-price{
+  margin-top:10px;
+  font-family:'Playfair Display',Georgia,serif;
+  font-size:52px;
+  font-weight:600;
+  line-height:1.02;
+  color:var(--gold);
+}
+.investment-subtext{
+  margin-top:8px;
+  font-size:14px;
+  font-weight:400;
+  color:var(--ink-faint);
+}
+.investment-divider{
+  width:100%;
+  height:1px;
+  margin:22px 0 18px;
+  background:rgba(168,136,42,0.15);
+}
+.investment-items{
+  font-size:13px;
+  line-height:1.7;
+  color:var(--ink-soft);
+}
+.closing{
+  margin-top:28px;
+  padding:40px;
+  border-radius:12px;
+  background:var(--card);
+  text-align:center;
+  box-shadow:var(--shadow);
+}
+.closing-quote{
+  max-width:480px;
+  margin:0 auto;
+  font-family:'Playfair Display',Georgia,serif;
+  font-size:20px;
+  font-style:italic;
+  line-height:1.7;
+  color:var(--ink-soft);
+}
+.closing-signature{
+  margin-top:18px;
+  font-size:14px;
+  font-weight:600;
+  color:var(--gold);
+}
+.footer{
+  margin-top:24px;
+  margin-left:-24px;
+  margin-right:-24px;
+  padding:24px;
+  background:var(--ink);
+  text-align:center;
+}
+.footer-copy{
+  font-size:12px;
+  font-weight:400;
+  color:rgba(255,255,255,.40);
+}
+@media (max-width:640px){
+  .page{padding:16px 16px 0}
+  .hero,.offer,.investment,.closing{padding:30px 22px}
+  .hero-title{font-size:34px}
+  .investment-price{font-size:40px}
+  .bonus-card{
+    grid-template-columns:1fr;
+    gap:12px;
+    padding:22px 22px 20px;
+  }
+  .bonus-pill{
+    position:static;
+    width:max-content;
+    margin-bottom:4px;
+  }
+  .footer{
+    margin-left:-16px;
+    margin-right:-16px;
+  }
+}
+</style>
+</head>
+<body>
+  <main class="page">
+    <section class="section hero" data-animate data-delay="0">
+      <span class="hero-tag">PROPOSTA EXCLUSIVA</span>
+      <div class="hero-kicker">Elisa, aqui está</div>
+      <h1 class="hero-title">tudo que preparamos</h1>
+      <p class="hero-subtitle">para transformar seu Instagram em uma máquina de agendamentos.</p>
+    </section>
+
+    <section class="section offer" data-animate data-delay="150">
+      <span class="offer-tag">O QUE VOCÊ LEVA</span>
+      <h2 class="offer-title">Assistente de Vendas Personalizada</h2>
+      <p class="offer-copy">Uma IA treinada com o perfil da sua clínica. Responde leads no WhatsApp em segundos, qualifica, agenda — 24 horas por dia, sem você precisar estar online.</p>
+    </section>
+
+    <section class="section bonus-wrap" data-animate data-delay="300">
+      <h2 class="bonus-title">+ Bônus exclusivos</h2>
+      <p class="bonus-subtitle">incluídos nesta proposta</p>
+
+      <div class="bonus-list">
+        <article class="bonus-card" data-bonus data-delay="0">
+          <span class="bonus-pill">BÔNUS</span>
+          <div class="bonus-icon">📈</div>
+          <div>
+            <h3 class="bonus-heading">Assessoria de Marketing e Vendas</h3>
+            <p class="bonus-copy">Estratégia personalizada para seu negócio. Vamos juntos entender o que está funcionando e o que está travando seus resultados.</p>
+          </div>
+        </article>
+
+        <article class="bonus-card" data-bonus data-delay="80">
+          <span class="bonus-pill">BÔNUS</span>
+          <div class="bonus-icon">⚡</div>
+          <div>
+            <h3 class="bonus-heading">Como usar o botão Impulsionar do Instagram</h3>
+            <p class="bonus-copy">Você vai aprender a investir de forma inteligente no Instagram — sem desperdiçar dinheiro em post que não converte.</p>
+          </div>
+        </article>
+
+        <article class="bonus-card" data-bonus data-delay="160">
+          <span class="bonus-pill">BÔNUS</span>
+          <div class="bonus-icon">🎯</div>
+          <div>
+            <h3 class="bonus-heading">Como postar conteúdos que atraem pacientes</h3>
+            <p class="bonus-copy">Conteúdo que gera autoridade, atrai o perfil certo de cliente e deixa sua agenda cheia — sem precisar virar criadora de conteúdo.</p>
+          </div>
+        </article>
+
+        <article class="bonus-card" data-bonus data-delay="240">
+          <span class="bonus-pill">BÔNUS</span>
+          <div class="bonus-icon">💛</div>
+          <div>
+            <h3 class="bonus-heading">Como fidelizar e atender clientes do Instagram</h3>
+            <p class="bonus-copy">Do primeiro contato ao retorno. Você vai ter um processo claro para transformar curtidas em pacientes fiéis.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section investment" data-animate data-delay="500">
+      <span class="investment-tag">SEU INVESTIMENTO</span>
+      <div class="investment-price">12x de R$ 250</div>
+      <p class="investment-subtext">sem juros · total R$ 3.000</p>
+      <div class="investment-divider"></div>
+      <p class="investment-items">Assistente de Vendas IA &nbsp;·&nbsp; Assessoria de Marketing &nbsp;·&nbsp; Impulsionar &nbsp;·&nbsp; Conteúdo &nbsp;·&nbsp; Fidelização</p>
+    </section>
+
+    <section class="section closing" data-animate data-delay="600">
+      <p class="closing-quote">"Isso foi pensado especialmente para o momento em que você está — e para onde você quer chegar."</p>
+      <div class="closing-signature">EstéticaFlow IA</div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-copy">escalacomia.com.br</div>
+  </footer>
+
+<script>
+const animatedSections = document.querySelectorAll('[data-animate]');
+const bonusCards = document.querySelectorAll('[data-bonus]');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (!entry.isIntersecting) return;
+
+    const delay = Number(entry.target.dataset.delay || 0);
+    window.setTimeout(() => {
+      entry.target.classList.add('is-visible');
+    }, delay);
+
+    if (entry.target.matches('.bonus-wrap')) {
+      bonusCards.forEach((card) => {
+        const cardDelay = Number(card.dataset.delay || 0);
+        window.setTimeout(() => {
+          card.classList.add('is-visible');
+        }, delay + cardDelay);
+      });
+    }
+
+    observer.unobserve(entry.target);
+  });
+}, {
+  threshold: 0.18
+});
+
+animatedSections.forEach((section) => observer.observe(section));
+</script>
+</body>
+</html>
