@@ -1,0 +1,1624 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EstéticaFlow | Diagnóstico de retorno de toxina</title>
+  <meta name="description" content="Diagnóstico gratuito para clínicas de harmonização facial calcularem receita previsível perdida por pacientes de toxina que não voltam para manutenção.">
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,500&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23faf7f2'/%3E%3Cpath d='M8 21c7-.5 11-4.5 11.6-11.6M10 25c8.2-.7 13.6-6.1 14.2-14.2' stroke='%23a8882a' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '30205371289109399');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=30205371289109399&ev=PageView&noscript=1" alt=""></noscript>
+  <style>
+    :root {
+      --bg: #faf7f2;
+      --bg-2: #f2ede4;
+      --bg-3: #e8e2d6;
+      --gold: #a8882a;
+      --gold-lt: #c9a84c;
+      --gold-soft: rgba(168, 136, 42, .08);
+      --gold-line: rgba(168, 136, 42, .24);
+      --rose: #c4906e;
+      --ink: #1a1410;
+      --ink-2: #5a4e40;
+      --ink-3: #8a7e72;
+      --red: #d93050;
+      --green: #0d8f64;
+      --white: #fffdf8;
+      --shadow: 0 28px 90px rgba(64, 45, 25, .14);
+      --display: "Playfair Display", Georgia, serif;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color-scheme: light;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      letter-spacing: 0;
+    }
+
+    body.modal-open { overflow: hidden; }
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+    button { border: 0; cursor: pointer; }
+
+    .shell {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(250, 247, 242, .88);
+      border-bottom: 1px solid rgba(168, 136, 42, .16);
+      backdrop-filter: blur(18px);
+    }
+
+    .topbar-inner {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--gold-line);
+      background: var(--white);
+      color: var(--gold);
+    }
+
+    .brand-mark svg,
+    .icon svg {
+      width: 20px;
+      height: 20px;
+      display: block;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      color: var(--ink-2);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .nav a:hover { color: var(--gold); }
+
+    .btn {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border-radius: 3px;
+      padding: 0 19px;
+      font-weight: 800;
+      line-height: 1;
+      white-space: nowrap;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      color: #fffaf0;
+      background: linear-gradient(135deg, var(--gold), var(--gold-lt));
+      box-shadow: 0 16px 34px rgba(168, 136, 42, .2);
+    }
+
+    .btn-secondary {
+      color: var(--ink);
+      background: transparent;
+      border: 1px solid var(--gold-line);
+    }
+
+    .btn-ghost {
+      min-height: 42px;
+      color: var(--ink-2);
+      background: transparent;
+      border: 1px solid rgba(90, 78, 64, .18);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 92px 0 78px;
+      border-bottom: 1px solid rgba(168, 136, 42, .14);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(250,247,242,.96), rgba(250,247,242,.76)),
+        url("leads-dashboard.png");
+      background-size: cover;
+      background-position: center;
+      opacity: .42;
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, .98fr) minmax(330px, 430px);
+      gap: 52px;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 36px;
+      padding: 0 12px;
+      color: var(--gold);
+      background: rgba(255, 253, 248, .68);
+      border: 1px solid var(--gold-line);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3 {
+      font-family: var(--display);
+      letter-spacing: 0;
+    }
+
+    h1 {
+      margin: 22px 0 18px;
+      max-width: 780px;
+      font-size: clamp(46px, 7.8vw, 92px);
+      line-height: .94;
+      font-weight: 600;
+    }
+
+    h1 em {
+      color: var(--rose);
+      font-style: italic;
+      font-weight: 500;
+    }
+
+    .hero-copy {
+      max-width: 650px;
+      color: var(--ink-2);
+      font-size: clamp(18px, 2vw, 21px);
+      line-height: 1.55;
+      margin: 0 0 28px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .trust-row {
+      margin-top: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      color: var(--ink-2);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .trust-row span {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .trust-row span::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      border-radius: 999px;
+    }
+
+    .diagnostic-card {
+      padding: 26px;
+      background: rgba(255, 253, 248, .82);
+      border: 1px solid var(--gold-line);
+      box-shadow: var(--shadow);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid rgba(168, 136, 42, .16);
+    }
+
+    .card-top strong {
+      display: block;
+      font-family: var(--display);
+      font-size: 28px;
+      line-height: 1.05;
+    }
+
+    .card-top span {
+      display: block;
+      margin-top: 6px;
+      color: var(--ink-3);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .card-metric {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .metric-line {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+      min-height: 58px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(168, 136, 42, .14);
+    }
+
+    .metric-line span {
+      color: var(--ink-2);
+      line-height: 1.35;
+      font-size: 14px;
+    }
+
+    .metric-line strong {
+      color: var(--red);
+      font-size: 21px;
+    }
+
+    .formula {
+      margin-top: 18px;
+      padding: 16px;
+      background: var(--bg-2);
+      border-left: 3px solid var(--gold);
+      color: var(--ink-2);
+      line-height: 1.55;
+      font-size: 14px;
+    }
+
+    section {
+      padding: 76px 0;
+      border-bottom: 1px solid rgba(168, 136, 42, .14);
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, .86fr) minmax(280px, .56fr);
+      gap: 30px;
+      align-items: end;
+      margin-bottom: 34px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(34px, 5vw, 58px);
+      line-height: 1;
+      font-weight: 600;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--ink-2);
+      line-height: 1.65;
+      font-size: 17px;
+    }
+
+    .three-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .panel {
+      min-height: 245px;
+      padding: 23px;
+      background: var(--bg-2);
+      border: 1px solid rgba(168, 136, 42, .18);
+    }
+
+    .panel .num {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      color: var(--gold);
+      background: rgba(168, 136, 42, .08);
+      border: 1px solid var(--gold-line);
+      font-weight: 900;
+      font-size: 12px;
+      letter-spacing: 2px;
+    }
+
+    .panel h3 {
+      margin: 22px 0 10px;
+      font-size: 25px;
+      line-height: 1.1;
+      font-weight: 600;
+    }
+
+    .panel p {
+      margin: 0;
+      color: var(--ink-2);
+      line-height: 1.62;
+    }
+
+    .split-band {
+      display: grid;
+      grid-template-columns: minmax(0, .78fr) minmax(0, 1fr);
+      gap: 32px;
+      align-items: center;
+    }
+
+    .quote-card {
+      padding: 30px;
+      background: var(--white);
+      border: 1px solid var(--gold-line);
+      box-shadow: var(--shadow);
+    }
+
+    .quote-card p {
+      margin: 0;
+      font-family: var(--display);
+      font-size: clamp(28px, 4vw, 45px);
+      line-height: 1.08;
+    }
+
+    .quote-card span {
+      display: block;
+      margin-top: 18px;
+      color: var(--ink-3);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .mechanism-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .mechanism-item {
+      display: grid;
+      grid-template-columns: 38px 1fr;
+      gap: 14px;
+      align-items: start;
+      padding: 18px;
+      background: var(--bg-2);
+      border: 1px solid rgba(168, 136, 42, .16);
+    }
+
+    .icon {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      color: var(--gold);
+      background: var(--gold-soft);
+      border: 1px solid var(--gold-line);
+    }
+
+    .mechanism-item strong {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--ink);
+    }
+
+    .mechanism-item span {
+      color: var(--ink-2);
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    .cta-band {
+      background: var(--bg-2);
+    }
+
+    .cta-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .cta-panel h2 {
+      margin: 0 0 10px;
+      font-size: clamp(32px, 5vw, 56px);
+      line-height: 1;
+      font-weight: 600;
+    }
+
+    .cta-panel p {
+      margin: 0;
+      color: var(--ink-2);
+      line-height: 1.6;
+      font-size: 17px;
+    }
+
+    .sticky-cta {
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      z-index: 35;
+      width: min(720px, calc(100% - 24px));
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 12px;
+      background: rgba(255, 253, 248, .94);
+      border: 1px solid var(--gold-line);
+      box-shadow: 0 24px 70px rgba(64, 45, 25, .18);
+      backdrop-filter: blur(18px);
+      transform: translate(-50%, 130%);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform .25s ease, opacity .25s ease;
+    }
+
+    .sticky-cta.visible {
+      transform: translate(-50%, 0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .sticky-cta strong { display: block; font-size: 15px; }
+    .sticky-cta span { display: block; margin-top: 3px; color: var(--ink-3); font-size: 13px; }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .modal.open { display: flex; }
+
+    .modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(26, 20, 16, .48);
+      backdrop-filter: blur(14px);
+    }
+
+    .modal-card {
+      position: relative;
+      z-index: 1;
+      width: min(760px, 100%);
+      max-height: min(92vh, 900px);
+      overflow: auto;
+      background: var(--white);
+      border: 1px solid var(--gold-line);
+      box-shadow: 0 30px 110px rgba(26, 20, 16, .28);
+    }
+
+    .modal-progress {
+      position: sticky;
+      top: 0;
+      z-index: 3;
+      height: 2px;
+      background: rgba(168, 136, 42, .14);
+    }
+
+    .modal-progress span {
+      display: block;
+      height: 100%;
+      width: var(--progress, 0%);
+      background: linear-gradient(135deg, var(--gold), var(--gold-lt));
+      transition: width .25s ease;
+    }
+
+    .modal-head {
+      position: sticky;
+      top: 2px;
+      z-index: 2;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 22px 22px 14px;
+      background: rgba(255, 253, 248, .96);
+      border-bottom: 1px solid rgba(168, 136, 42, .14);
+    }
+
+    .modal-kicker {
+      margin: 0 0 8px;
+      color: var(--gold);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .modal-head h2 {
+      margin: 0 0 7px;
+      font-size: 28px;
+      line-height: 1.1;
+      font-weight: 600;
+    }
+
+    .modal-head p {
+      margin: 0;
+      color: var(--ink-2);
+      line-height: 1.45;
+      font-size: 14px;
+    }
+
+    .close-btn {
+      flex: 0 0 42px;
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      color: var(--ink);
+      background: var(--bg-2);
+      border: 1px solid rgba(90, 78, 64, .16);
+      border-radius: 3px;
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .quiz-body {
+      padding: 22px;
+    }
+
+    .step-dots {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .step-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(168, 136, 42, .24);
+      transition: transform .2s ease, background .2s ease;
+    }
+
+    .step-dot.done { background: rgba(168, 136, 42, .52); }
+    .step-dot.active {
+      background: var(--gold);
+      transform: scale(1.3);
+    }
+
+    .question-title {
+      margin: 0 0 8px;
+      font-family: var(--display);
+      font-size: clamp(30px, 5vw, 44px);
+      line-height: 1.05;
+      font-weight: 600;
+    }
+
+    .question-subtitle {
+      margin: 0 0 22px;
+      color: var(--ink-2);
+      line-height: 1.56;
+    }
+
+    .options-grid {
+      display: grid;
+      gap: 11px;
+    }
+
+    .option-card {
+      width: 100%;
+      min-height: 74px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: center;
+      padding: 16px;
+      color: var(--ink);
+      background: var(--bg);
+      border: 1px solid var(--gold-line);
+      border-radius: 3px;
+      text-align: left;
+    }
+
+    .option-card:hover,
+    .option-card:focus {
+      border-color: rgba(168, 136, 42, .52);
+      outline: none;
+    }
+
+    .option-card.selected {
+      background: var(--gold-soft);
+      border-color: var(--gold);
+      box-shadow: inset 0 0 0 1px var(--gold);
+    }
+
+    .option-card strong {
+      display: block;
+      font-size: 15px;
+      line-height: 1.35;
+    }
+
+    .option-card span {
+      display: block;
+      margin-top: 4px;
+      color: var(--ink-3);
+      line-height: 1.4;
+      font-size: 13px;
+    }
+
+    .option-card .arrow {
+      color: var(--gold);
+      font-weight: 900;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    label.field {
+      display: grid;
+      gap: 8px;
+      color: var(--ink);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    input {
+      min-height: 52px;
+      width: 100%;
+      padding: 0 13px;
+      color: var(--ink);
+      background: var(--bg);
+      border: 1px solid var(--gold-line);
+      border-radius: 3px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(168, 136, 42, .12);
+    }
+
+    .consent {
+      margin-top: 16px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      color: var(--ink-2);
+      line-height: 1.45;
+      font-size: 13px;
+    }
+
+    .consent input {
+      width: 18px;
+      height: 18px;
+      min-height: 18px;
+      margin-top: 1px;
+      accent-color: var(--gold);
+    }
+
+    .quiz-actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(168, 136, 42, .14);
+    }
+
+    .status {
+      min-height: 24px;
+      margin-top: 12px;
+      color: var(--ink-3);
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    .status.error { color: var(--red); }
+    .status.success { color: var(--green); }
+
+    .result-card {
+      padding: 22px;
+      background: var(--bg);
+      border: 1px solid var(--gold-line);
+    }
+
+    .result-number {
+      margin: 8px 0 4px;
+      color: var(--red);
+      font-family: var(--display);
+      font-size: clamp(46px, 10vw, 78px);
+      line-height: .95;
+      font-weight: 700;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .result-mini {
+      padding: 14px;
+      background: var(--white);
+      border: 1px solid rgba(168, 136, 42, .16);
+    }
+
+    .result-mini strong {
+      display: block;
+      font-size: 20px;
+      color: var(--ink);
+    }
+
+    .result-mini span {
+      display: block;
+      margin-top: 5px;
+      color: var(--ink-3);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .disqualify-card {
+      padding: 24px;
+      background: var(--bg);
+      border: 1px solid rgba(217, 48, 80, .26);
+    }
+
+    .disqualify-card h3 {
+      margin: 0 0 10px;
+      color: var(--red);
+      font-size: 32px;
+      line-height: 1;
+    }
+
+    .disqualify-card p {
+      margin: 0;
+      color: var(--ink-2);
+      line-height: 1.62;
+    }
+
+    .reveal {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 900px) {
+      .nav { display: none; }
+      .hero { padding: 58px 0 62px; }
+      .hero-grid,
+      .section-head,
+      .split-band,
+      .cta-panel {
+        grid-template-columns: 1fr;
+      }
+      .three-grid { grid-template-columns: 1fr; }
+      .diagnostic-card { max-width: 560px; }
+    }
+
+    @media (max-width: 640px) {
+      .shell { width: min(100% - 24px, 1120px); }
+      .topbar-inner { min-height: 64px; }
+      .brand { letter-spacing: .04em; }
+      h1 { font-size: clamp(42px, 15vw, 58px); }
+      section { padding: 56px 0; }
+      .hero-actions,
+      .quiz-actions,
+      .sticky-cta {
+        align-items: stretch;
+        flex-direction: column;
+      }
+      .hero-actions .btn,
+      .sticky-cta .btn,
+      .quiz-actions .btn {
+        width: 100%;
+      }
+      .modal { padding: 10px; }
+      .modal-head { padding: 18px 16px 12px; }
+      .quiz-body { padding: 16px; }
+      .field-grid,
+      .result-grid {
+        grid-template-columns: 1fr;
+      }
+      .option-card {
+        grid-template-columns: 1fr;
+        min-height: 86px;
+      }
+      .option-card .arrow { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand" href="#top" aria-label="EstéticaFlow">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 15c5.2-.4 8.1-3.3 8.5-8.5M7 20c6.6-.6 11-5 11.5-11.5M4 6h6v6H4z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span>EstéticaFlow</span>
+      </a>
+      <nav class="nav" aria-label="Navegação principal">
+        <a href="#problema">Problema</a>
+        <a href="#calculo">Cálculo</a>
+        <a href="#regua">Régua</a>
+      </nav>
+      <button class="btn btn-primary" type="button" data-open-quiz>
+        Calcular receita perdida
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="shell hero-grid">
+        <div class="reveal">
+          <span class="badge">Diagnóstico gratuito · Clínicas de harmonização facial · 2 min</span>
+          <h1>Aplicou 50 toxinas em janeiro. <em>Quantas voltaram em maio?</em></h1>
+          <p class="hero-copy">A janela de retorno da toxina fecha entre o 3º e o 4º mês. Se o paciente não volta nessa janela, ele some, ou aparece na clínica do concorrente. Calcule quanto de receita previsível sua base deixa escapar.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" type="button" data-open-quiz>Calcular minha receita perdida</button>
+            <a class="btn btn-secondary" href="#calculo">Ver como calculo</a>
+          </div>
+          <div class="trust-row" aria-label="Sinais de confiança">
+            <span>Gratuito</span>
+            <span>Sem pedir cartão</span>
+            <span>Cálculo com seus números</span>
+          </div>
+        </div>
+
+        <aside class="diagnostic-card reveal" aria-label="Resumo do diagnóstico">
+          <div class="card-top">
+            <div>
+              <strong>O 4º mês decide a recorrência.</strong>
+              <span>Entre o efeito começando a cair e a próxima aplicação, sua paciente escolhe se volta para você ou para outro consultório.</span>
+            </div>
+          </div>
+          <div class="card-metric">
+            <div class="metric-line"><span>Aplicações de toxina por mês</span><strong>50</strong></div>
+            <div class="metric-line"><span>Pacientes sem manutenção estimada</span><strong>15</strong></div>
+            <div class="metric-line"><span>Receita previsível em risco</span><strong>R$ 12k+</strong></div>
+          </div>
+          <div class="formula">toxinas/mês × taxa de não-retorno × valor da aplicação = receita que a clínica deixa de recuperar.</div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="problema">
+      <div class="shell">
+        <div class="section-head reveal">
+          <h2>O problema não é só agenda vazia. É paciente de manutenção que vira paciente inativo.</h2>
+          <p>Quem aplica toxina sabe a janela. O difícil é ter um sistema de acompanhamento que avisa quem está passando do prazo, sem depender da memória da profissional ou da planilha que parou de ser alimentada.</p>
+        </div>
+        <div class="three-grid">
+          <article class="panel reveal">
+            <span class="num">01</span>
+            <h3>A paciente some no 4º mês</h3>
+            <p>Ela aplicou, assinou termo, recebeu orientação pós e desapareceu. Quando você lembra dela, talvez já tenha reaplicado em outro lugar.</p>
+          </article>
+          <article class="panel reveal">
+            <span class="num">02</span>
+            <h3>A base existe, mas não trabalha por você</h3>
+            <p>Ficha clínica, agenda, Excel e WhatsApp carregam pedaços da história. Sem régua de retorno, ninguém cruza isso todo dia.</p>
+          </article>
+          <article class="panel reveal">
+            <span class="num">03</span>
+            <h3>A secretária não escala recorrência</h3>
+            <p>Acima de 100 pacientes, lembrar aplicação por aplicação vira sorte. A equipe deveria cuidar de resposta quente, não caçar retorno manual.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="calculo">
+      <div class="shell split-band">
+        <div class="quote-card reveal">
+          <p>“Eu sei que a toxina dura 4 meses. Eu sei. Mas não tem um sistema que me avisa quem está passando desse prazo.”</p>
+          <span>Dor real do MQL de harmonização</span>
+        </div>
+        <div class="mechanism-list reveal" aria-label="Como o cálculo funciona">
+          <div class="mechanism-item">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M7 7h10M9 17h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+            <div><strong>Volume mensal de toxina</strong><span>O diagnóstico começa pelo número de aplicações de toxina que sua clínica faz em um mês comum.</span></div>
+          </div>
+          <div class="mechanism-item">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 6v6l4 2M20 12a8 8 0 1 1-16 0 8 8 0 0 1 16 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div><strong>Taxa de não-retorno</strong><span>Você estima quantos pacientes de 4 meses ou mais ainda não voltaram para manutenção.</span></div>
+          </div>
+          <div class="mechanism-item">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M7 17V7h10M7 17h10V7M10 11h4M10 14h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div><strong>Valor da aplicação sem combo</strong><span>A conta usa toxina pura, sem inflar com preenchimento, bioestimulador ou protocolo full face.</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="regua">
+      <div class="shell">
+        <div class="section-head reveal">
+          <h2>A saída é uma régua de retorno calibrada na janela biológica da toxina.</h2>
+          <p>CycleFlow transforma cada aplicação em um evento de acompanhamento: na janela de retorno certa, a paciente recebe uma mensagem individualizada e agenda a manutenção antes de esfriar.</p>
+        </div>
+        <div class="three-grid">
+          <article class="panel reveal">
+            <span class="num">01</span>
+            <h3>Aplicação vira evento</h3>
+            <p>Data, procedimento e paciente entram no sistema de acompanhamento logo depois da aplicação.</p>
+          </article>
+          <article class="panel reveal">
+            <span class="num">02</span>
+            <h3>Mensagem no 4º mês</h3>
+            <p>A régua dispara um lembrete individualizado, respeitando a janela de manutenção e a agenda da clínica.</p>
+          </article>
+          <article class="panel reveal">
+            <span class="num">03</span>
+            <h3>Dashboard de retorno</h3>
+            <p>A clínica acompanha pacientes recuperados, receita atribuída e taxa real de recorrência mês a mês.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <div class="shell cta-panel reveal">
+        <div>
+          <h2>Veja o número antes de decidir qualquer coisa.</h2>
+          <p>Em 2 minutos, calcule a receita mensal que pode estar parada na sua base de pacientes de toxina.</p>
+        </div>
+        <button class="btn btn-primary" type="button" data-open-quiz>Calcular minha receita perdida</button>
+      </div>
+    </section>
+  </main>
+
+  <div class="sticky-cta" id="stickyCta" aria-hidden="true">
+    <div>
+      <strong>Diagnóstico de retorno de toxina</strong>
+      <span>Calcule a receita que pode estar saindo no 4º mês.</span>
+    </div>
+    <button class="btn btn-primary" type="button" data-open-quiz>Abrir quiz</button>
+  </div>
+
+  <div class="modal" id="quizModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-backdrop" data-close-quiz></div>
+    <div class="modal-card">
+      <div class="modal-progress" aria-hidden="true"><span id="progressBar"></span></div>
+      <div class="modal-head">
+        <div>
+          <p class="modal-kicker" id="stepKicker">Diagnóstico de receita perdida</p>
+          <h2 id="modalTitle">Quiz de retorno de toxina</h2>
+          <p id="modalSubtitle">Responda com a média real da clínica. O cálculo usa os números informados por você.</p>
+        </div>
+        <button class="close-btn" type="button" aria-label="Fechar popup" data-close-quiz>&times;</button>
+      </div>
+      <div class="quiz-body">
+        <div class="step-dots" id="stepDots" aria-hidden="true"></div>
+        <div id="quizContent"></div>
+        <div class="status" id="quizStatus" role="status" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const SUPABASE_URL = 'https://wkxipimeaftbzfsvfnob.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndreGlwaW1lYWZ0Ynpmc3Zmbm9iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxODE3MzAsImV4cCI6MjA5MTc1NzczMH0.Srd0Ce78lvAY6gNbW0TUxSxJdEcGCSj3sC9m6VjOdj4';
+    const TENANT_ID = 'f1a75000-cafe-4000-8000-ca1c1ac00001';
+    const CALENDLY_URL = 'https://calendly.com/agenciaf-mendes/new-meeting';
+    const LEADS_TABLE = 'leads_harmonizacao';
+
+    const modal = document.getElementById('quizModal');
+    const content = document.getElementById('quizContent');
+    const statusEl = document.getElementById('quizStatus');
+    const progressBar = document.getElementById('progressBar');
+    const dotsEl = document.getElementById('stepDots');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalSubtitle = document.getElementById('modalSubtitle');
+    const stepKicker = document.getElementById('stepKicker');
+    const stickyCta = document.getElementById('stickyCta');
+
+    const state = {
+      started: false,
+      step: 0,
+      result: null,
+      answers: {
+        nicho: 'harmonizacao'
+      }
+    };
+
+    const steps = [
+      {
+        id: 'nome',
+        type: 'input',
+        title: 'Antes de começar, como você quer que eu te chame?',
+        subtitle: 'O diagnóstico vai ser personalizado com seu nome e os números da sua clínica.',
+        fields: [{ id: 'nome', label: 'Seu nome', autocomplete: 'name', required: true }]
+      },
+      {
+        id: 'toxinas_mes',
+        title: 'Quantas aplicações de toxina vocês fazem por mês, em média?',
+        subtitle: 'Conte só toxina. Preenchimento e bioestimulador entram como oportunidade de protocolo no retorno.',
+        options: [
+          { label: 'Menos de 15 por mês', value: 10, score: 5, note: 'Pré-MQL' },
+          { label: '15 a 30 por mês', value: 22, score: 15, note: 'Volume com oportunidade real' },
+          { label: '30 a 60 por mês', value: 45, score: 25, note: 'Base suficiente para régua de retorno' },
+          { label: 'Mais de 60 por mês', value: 80, score: 30, note: 'MQL forte' }
+        ]
+      },
+      {
+        id: 'ticket',
+        title: 'Qual o valor médio de uma aplicação de toxina sem combo?',
+        subtitle: 'Aplicação solo, sem preenchimento junto. O que a paciente paga para fazer só a toxina.',
+        options: [
+          { label: 'Menos de R$ 600', value: 0, score: 0, disqualify: true, note: 'Fora do ICP premium' },
+          { label: 'R$ 600 a R$ 1.000', value: 800, score: 8, note: 'Pré-MQL' },
+          { label: 'R$ 1.000 a R$ 1.800', value: 1400, score: 16, note: 'MQL' },
+          { label: 'R$ 1.800 a R$ 3.000', value: 2400, score: 24, note: 'MQL forte' },
+          { label: 'Acima de R$ 3.000', value: 3500, score: 30, note: 'MQL forte' }
+        ]
+      },
+      {
+        id: 'taxa_nao_retorno',
+        title: 'Dos pacientes que fizeram toxina há 4 meses ou mais, quantos já voltaram pra manutenção?',
+        subtitle: 'Sem julgamento. A maioria das clínicas não sabe esse número exato, e é por isso que a régua faz diferença.',
+        options: [
+          { label: 'Quase todos voltaram (80% ou mais)', value: .15, score: 4, note: 'Já tem processo' },
+          { label: 'A maioria voltou (60% a 80%)', value: .30, score: 12, note: 'Ainda existe vazamento' },
+          { label: 'Metade voltou (40% a 60%)', value: .50, score: 22, note: 'MQL forte' },
+          { label: 'Menos da metade voltou', value: .65, score: 30, note: 'MQL forte' },
+          { label: 'Sinceramente, não sei', value: .50, score: 34, note: 'MQL puríssimo' }
+        ]
+      },
+      {
+        id: 'processo_retorno',
+        title: 'Quando um paciente completa 4 meses desde a última aplicação, o que acontece hoje?',
+        subtitle: 'Essa é a pergunta que mostra se a receita está sendo acompanhada ou ficando escondida na base.',
+        options: [
+          { label: 'Mandamos mensagem proativa oferecendo agendamento', value: 'proativo', score: 5, note: 'Já existe processo' },
+          { label: 'Temos intenção, mas raramente sobra tempo para fazer', value: 'sem_tempo', score: 24, note: 'Dor operacional viva' },
+          { label: 'Esperamos o paciente lembrar e voltar sozinho', value: 'espera_paciente', score: 28, note: 'Receita dependente de memória' },
+          { label: 'Sinceramente, nunca paramos pra pensar nisso', value: 'nunca_pensou', score: 34, note: 'MQL puríssimo' }
+        ]
+      },
+      {
+        id: 'responsavel',
+        title: 'Quem acompanha o ciclo de retorno dos pacientes hoje?',
+        subtitle: 'Isso define se a régua precisa aliviar você, a recepção ou substituir uma planilha manual.',
+        options: [
+          { label: 'Eu mesma, quando lembro entre um paciente e outro', value: 'dona', score: 28, note: 'Decisor sente a dor' },
+          { label: 'Minha secretária ou recepcionista, na base da planilha', value: 'secretaria', score: 20, note: 'Processo manual' },
+          { label: 'Ninguém especificamente, acontece quando dá', value: 'ninguem', score: 30, note: 'Vazamento claro' },
+          { label: 'Já temos um sistema automatizado rodando', value: 'sistema', score: 6, note: 'Pode exigir comparação' }
+        ]
+      },
+      {
+        id: 'trafego_pago',
+        title: 'Quanto sua clínica investe em tráfego pago por mês pra atrair paciente novo?',
+        subtitle: 'Instagram Ads, Google ou qualquer mídia paga. Isso compara paciente novo comprado com paciente antigo recuperado.',
+        options: [
+          { label: 'Não invisto em tráfego pago', value: 0, score: 0, note: 'Sem comparativo de mídia' },
+          { label: 'Menos de R$ 2.000 por mês', value: 1500, score: 4, note: 'Começando a comprar demanda' },
+          { label: 'R$ 2.000 a R$ 8.000 por mês', value: 5000, score: 14, note: 'Bom comparativo de recuperação' },
+          { label: 'Mais de R$ 8.000 por mês', value: 12000, score: 22, note: 'MQL forte' }
+        ]
+      },
+      {
+        id: 'urgencia',
+        title: 'Pensando nos próximos 30 dias, qual é seu cenário real?',
+        subtitle: 'Define se esse diagnóstico vira uma conversa agora ou se faz sentido acompanhar com calma.',
+        options: [
+          { label: 'Tenho urgência, já perdi dinheiro demais por isso', value: 'mes', score: 30, note: 'MQL quente' },
+          { label: 'Quero começar a estruturar nos próximos 2 a 3 meses', value: 'trimestre', score: 16, note: 'MQL morno' },
+          { label: 'Ainda estou avaliando, sem pressa', value: 'avaliando', score: 6, note: 'MQL frio' },
+          { label: 'Só curiosidade, por enquanto', value: 'curiosidade', score: 0, note: 'Baixa urgência' }
+        ]
+      },
+      {
+        id: 'contato',
+        type: 'contact',
+        title: 'Onde eu te mando o diagnóstico completo e o convite pra call?',
+        subtitle: 'Uma mensagem com o diagnóstico. Sem sequência insistente e sem spam.',
+        fields: [
+          { id: 'nome_clinica', label: 'Nome da clínica', autocomplete: 'organization', required: true },
+          { id: 'whatsapp', label: 'WhatsApp com DDD', autocomplete: 'tel', required: true }
+        ]
+      }
+    ];
+
+    function trackPixel(eventName, eventType = 'trackCustom', params = {}) {
+      if (typeof fbq === 'function') {
+        fbq(eventType, eventName, params);
+      }
+    }
+
+    function formatCurrency(value) {
+      return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 }).format(value || 0);
+    }
+
+    function maskWhatsapp(value) {
+      const digits = value.replace(/\D/g, '').slice(0, 11);
+      if (digits.length <= 2) return digits;
+      if (digits.length <= 6) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+      if (digits.length <= 10) return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
+      return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+    }
+
+    function getUtms() {
+      const params = new URLSearchParams(window.location.search);
+      return {
+        utm_source: params.get('utm_source') || null,
+        utm_medium: params.get('utm_medium') || null,
+        utm_campaign: params.get('utm_campaign') || null,
+        utm_term: params.get('utm_term') || null,
+        utm_content: params.get('utm_content') || null
+      };
+    }
+
+    function setStatus(message, type = '') {
+      statusEl.textContent = message;
+      statusEl.className = `status ${type}`.trim();
+    }
+
+    function calculateResult() {
+      const toxinasMes = Number(state.answers.toxinas_mes?.value || 0);
+      const ticket = Number(state.answers.ticket?.value || 0);
+      const taxaNaoRetorno = Number(state.answers.taxa_nao_retorno?.value || 0);
+      const pacientesNaoRetornandoMes = Math.round(toxinasMes * taxaNaoRetorno * 10) / 10;
+      const receitaPerdidaMes = Math.round(pacientesNaoRetornandoMes * ticket);
+      const receitaPerdidaAno = receitaPerdidaMes * 12;
+      const recuperacaoBaixa = Math.round(pacientesNaoRetornandoMes * .20 * 10) / 10;
+      const receitaRecuperadaBaixa = Math.round(recuperacaoBaixa * ticket);
+      const pesoMql = Object.values(state.answers).reduce((total, answer) => total + Number(answer?.score || 0), 0);
+
+      return {
+        toxinas_mes: toxinasMes,
+        ticket,
+        taxa_nao_retorno: taxaNaoRetorno,
+        pacientes_nao_retornando_mes: pacientesNaoRetornandoMes,
+        receita_perdida_mes: receitaPerdidaMes,
+        receita_perdida_ano: receitaPerdidaAno,
+        recuperacao_baixa: recuperacaoBaixa,
+        receita_recuperada_baixa: receitaRecuperadaBaixa,
+        peso_mql: pesoMql
+      };
+    }
+
+    function getMqlTemperature(score) {
+      if (score >= 160) return 'MQL quente';
+      if (score >= 100) return 'MQL morno';
+      return 'MQL frio';
+    }
+
+    function renderDots() {
+      dotsEl.innerHTML = steps.map((_, index) => {
+        const cls = index < state.step ? 'done' : index === state.step ? 'active' : '';
+        return `<span class="step-dot ${cls}"></span>`;
+      }).join('');
+    }
+
+    function updateProgress() {
+      const progress = Math.round((state.step / Math.max(steps.length - 1, 1)) * 100);
+      progressBar.style.setProperty('--progress', `${progress}%`);
+      renderDots();
+      stepKicker.textContent = `Etapa ${Math.min(state.step + 1, steps.length)} de ${steps.length}`;
+    }
+
+    function renderStep() {
+      const step = steps[state.step];
+      setStatus('');
+      updateProgress();
+      modalTitle.textContent = step.title;
+      modalSubtitle.textContent = step.subtitle;
+
+      if (step.type === 'input') {
+        content.innerHTML = `
+          <h3 class="question-title">${step.title}</h3>
+          <p class="question-subtitle">${step.subtitle}</p>
+          <div class="field-grid">
+            ${step.fields.map(field => `
+              <label class="field" for="${field.id}">${field.label}
+                <input id="${field.id}" name="${field.id}" type="text" autocomplete="${field.autocomplete}" required>
+              </label>
+            `).join('')}
+          </div>
+          <div class="quiz-actions">
+            <button class="btn btn-ghost" type="button" data-close-quiz>Fechar</button>
+            <button class="btn btn-primary" type="button" data-next-input>Continuar</button>
+          </div>
+        `;
+        bindCloseButtons();
+        content.querySelector('[data-next-input]').addEventListener('click', () => {
+          const input = content.querySelector('input');
+          if (!input.value.trim()) {
+            input.focus();
+            setStatus('Preencha seu nome para personalizar o diagnóstico.', 'error');
+            return;
+          }
+          state.answers.nome = { value: input.value.trim(), score: 0, label: input.value.trim() };
+          nextStep();
+        });
+        window.setTimeout(() => content.querySelector('input')?.focus(), 30);
+        return;
+      }
+
+      if (step.type === 'contact') {
+        state.result = calculateResult();
+        content.innerHTML = `
+          <h3 class="question-title">${step.title}</h3>
+          <p class="question-subtitle">${step.subtitle}</p>
+          <div class="field-grid">
+            ${step.fields.map(field => `
+              <label class="field" for="${field.id}">${field.label}
+                <input id="${field.id}" name="${field.id}" type="${field.id === 'whatsapp' ? 'tel' : 'text'}" autocomplete="${field.autocomplete}" required>
+              </label>
+            `).join('')}
+          </div>
+          <label class="consent">
+            <input id="consent" type="checkbox" required>
+            <span>Autorizo contato pelo WhatsApp e o registro dos dados para análise comercial, conforme a LGPD.</span>
+          </label>
+          <div class="quiz-actions">
+            <button class="btn btn-ghost" type="button" data-prev>Voltar</button>
+            <button class="btn btn-primary" type="button" data-submit-quiz>Ver meu número</button>
+          </div>
+        `;
+        const whatsappInput = content.querySelector('#whatsapp');
+        whatsappInput.addEventListener('input', event => {
+          event.target.value = maskWhatsapp(event.target.value);
+        });
+        content.querySelector('[data-prev]').addEventListener('click', prevStep);
+        content.querySelector('[data-submit-quiz]').addEventListener('click', submitQuiz);
+        window.setTimeout(() => content.querySelector('#nome_clinica')?.focus(), 30);
+        return;
+      }
+
+      content.innerHTML = `
+        <h3 class="question-title">${step.title}</h3>
+        <p class="question-subtitle">${step.subtitle}</p>
+        <div class="options-grid">
+          ${step.options.map((option, index) => `
+            <button class="option-card" type="button" data-option="${index}">
+              <span><strong>${option.label}</strong><span>${option.note}</span></span>
+              <span class="arrow" aria-hidden="true">→</span>
+            </button>
+          `).join('')}
+        </div>
+        <div class="quiz-actions">
+          <button class="btn btn-ghost" type="button" ${state.step === 0 ? 'data-close-quiz' : 'data-prev'}>${state.step === 0 ? 'Fechar' : 'Voltar'}</button>
+        </div>
+      `;
+
+      bindCloseButtons();
+      const previous = state.answers[step.id];
+      content.querySelectorAll('[data-option]').forEach(button => {
+        const option = step.options[Number(button.dataset.option)];
+        if (previous?.label === option.label) button.classList.add('selected');
+        button.addEventListener('click', () => {
+          content.querySelectorAll('.option-card').forEach(card => card.classList.remove('selected'));
+          button.classList.add('selected');
+          state.answers[step.id] = option;
+          if (option.disqualify) {
+            showDisqualification();
+            return;
+          }
+          window.setTimeout(nextStep, 180);
+        });
+      });
+      content.querySelector('[data-prev]')?.addEventListener('click', prevStep);
+    }
+
+    function showDisqualification() {
+      stepKicker.textContent = 'Fora do ICP atual';
+      progressBar.style.setProperty('--progress', '100%');
+      modalTitle.textContent = 'Obrigado pelo tempo.';
+      modalSubtitle.textContent = 'O diagnóstico foi encerrado sem pedir contato.';
+      dotsEl.innerHTML = '';
+      content.innerHTML = `
+        <div class="disqualify-card">
+          <h3>Talvez não seja o match ideal agora.</h3>
+          <p>Nosso produto é voltado para clínicas médicas, odontológicas e biomédicas com ticket de harmonização premium. Talvez não seja o match ideal. Obrigado pelo tempo.</p>
+        </div>
+        <div class="quiz-actions">
+          <button class="btn btn-primary" type="button" data-close-quiz>Fechar diagnóstico</button>
+        </div>
+      `;
+      bindCloseButtons();
+    }
+
+    function nextStep() {
+      if (state.step < steps.length - 1) {
+        state.step += 1;
+        renderStep();
+      }
+    }
+
+    function prevStep() {
+      if (state.step > 0) {
+        state.step -= 1;
+        renderStep();
+      }
+    }
+
+    async function submitQuiz() {
+      const clinica = content.querySelector('#nome_clinica');
+      const whatsapp = content.querySelector('#whatsapp');
+      const consent = content.querySelector('#consent');
+      if (!clinica.value.trim() || !whatsapp.value.trim() || !consent.checked) {
+        setStatus('Preencha clínica, WhatsApp e aceite o contato para receber o diagnóstico.', 'error');
+        return;
+      }
+
+      state.answers.nome_clinica = { value: clinica.value.trim(), score: 0, label: clinica.value.trim() };
+      state.answers.whatsapp = { value: whatsapp.value.trim(), score: 0, label: whatsapp.value.trim() };
+      state.result = calculateResult();
+
+      setStatus('Salvando seu diagnóstico...', '');
+      const submitButton = content.querySelector('[data-submit-quiz]');
+      submitButton.disabled = true;
+      submitButton.textContent = 'Salvando...';
+
+      try {
+        await saveLead();
+        trackPixel('QuizHarmonizacaoConcluido');
+        trackPixel('Lead', 'track', { content_name: 'quiz_harmonizacao_popup' });
+        showResult();
+      } catch (error) {
+        setStatus(`Não foi possível salvar agora: ${error.message}`, 'error');
+        submitButton.disabled = false;
+        submitButton.textContent = 'Ver meu número';
+      }
+    }
+
+    function buildLeadPayload() {
+      const utms = getUtms();
+      const result = state.result || calculateResult();
+      const answers = {
+        nicho: 'harmonizacao',
+        nome: state.answers.nome?.value || null,
+        nome_clinica: state.answers.nome_clinica?.value || null,
+        whatsapp: state.answers.whatsapp?.value || null,
+        toxinas_mes: state.answers.toxinas_mes?.value || null,
+        ticket: state.answers.ticket?.value || null,
+        taxa_nao_retorno: state.answers.taxa_nao_retorno?.value || null,
+        processo_retorno: state.answers.processo_retorno?.value || null,
+        responsavel: state.answers.responsavel?.value || null,
+        trafego_pago: state.answers.trafego_pago?.value || null,
+        urgencia: state.answers.urgencia?.value || null,
+        labels: Object.fromEntries(Object.entries(state.answers).map(([key, answer]) => [key, answer?.label || answer?.value || null]))
+      };
+
+      return {
+        tenant_id: TENANT_ID,
+        nome: answers.nome,
+        name: answers.nome,
+        nome_clinica: answers.nome_clinica,
+        whatsapp: answers.whatsapp,
+        nicho: 'harmonizacao',
+        respostas: answers,
+        form_answers: answers,
+        receita_perdida_mes: result.receita_perdida_mes,
+        receita_perdida_ano: result.receita_perdida_ano,
+        pacientes_nao_retornando_mes: result.pacientes_nao_retornando_mes,
+        peso_mql: result.peso_mql,
+        temperatura_mql: getMqlTemperature(result.peso_mql),
+        form_score: result.peso_mql,
+        lgpd_consent: true,
+        lgpd_consent_at: new Date().toISOString(),
+        utm_source: utms.utm_source,
+        utm_medium: utms.utm_medium,
+        utm_campaign: utms.utm_campaign,
+        utm_term: utms.utm_term,
+        utm_content: utms.utm_content
+      };
+    }
+
+    function buildLegacyLeadPayload() {
+      const payload = buildLeadPayload();
+      return {
+        tenant_id: payload.tenant_id,
+        name: payload.name,
+        whatsapp: payload.whatsapp,
+        form_score: payload.form_score,
+        form_answers: {
+          ...payload.form_answers,
+          receita_perdida_mes: payload.receita_perdida_mes,
+          receita_perdida_ano: payload.receita_perdida_ano,
+          pacientes_nao_retornando_mes: payload.pacientes_nao_retornando_mes,
+          temperatura_mql: payload.temperatura_mql,
+          preferred_table: LEADS_TABLE
+        },
+        lgpd_consent: payload.lgpd_consent,
+        lgpd_consent_at: payload.lgpd_consent_at,
+        utm_source: payload.utm_source,
+        utm_medium: payload.utm_medium,
+        utm_campaign: payload.utm_campaign,
+        utm_term: payload.utm_term,
+        utm_content: payload.utm_content
+      };
+    }
+
+    async function postToSupabase(table, payload) {
+      const response = await fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
+        method: 'POST',
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${SUPABASE_KEY}`,
+          'Content-Type': 'application/json',
+          Prefer: 'return=minimal'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+        const detail = await response.text();
+        throw new Error(detail || `Supabase respondeu ${response.status}`);
+      }
+    }
+
+    async function saveLead() {
+      try {
+        await postToSupabase(LEADS_TABLE, buildLeadPayload());
+      } catch (primaryError) {
+        await postToSupabase('leads', buildLegacyLeadPayload());
+      }
+    }
+
+    function showResult() {
+      const result = state.result || calculateResult();
+      stepKicker.textContent = 'Resultado resumido';
+      progressBar.style.setProperty('--progress', '100%');
+      modalTitle.textContent = `${state.answers.nome.value}, sua clínica pode estar deixando na mesa:`;
+      modalSubtitle.textContent = 'Este é um diagnóstico estimado com base nas respostas informadas. A call revisa os números reais da operação.';
+      dotsEl.innerHTML = '';
+      setStatus('', 'success');
+
+      content.innerHTML = `
+        <div class="result-card">
+          <span class="badge">Receita previsível perdida</span>
+          <div class="result-number">${formatCurrency(result.receita_perdida_mes)}</div>
+          <p class="question-subtitle">por mês em pacientes de toxina que não voltaram para manutenção.</p>
+          <div class="result-grid">
+            <div class="result-mini"><strong>${formatCurrency(result.receita_perdida_ano)}</strong><span>estimado em 12 meses</span></div>
+            <div class="result-mini"><strong>${result.pacientes_nao_retornando_mes}</strong><span>pacientes sem manutenção/mês</span></div>
+            <div class="result-mini"><strong>${getMqlTemperature(result.peso_mql)}</strong><span>${result.peso_mql} pontos de prioridade</span></div>
+          </div>
+          <div class="formula">Cálculo: ${result.toxinas_mes} aplicações/mês × ${Math.round(result.taxa_nao_retorno * 100)}% que não voltam × ${formatCurrency(result.ticket)}.</div>
+        </div>
+        <div class="quiz-actions">
+          <button class="btn btn-ghost" type="button" data-close-quiz>Fechar</button>
+          <button class="btn btn-primary" type="button" data-calendly>Agendar minha call de diagnóstico</button>
+        </div>
+      `;
+      bindCloseButtons();
+      content.querySelector('[data-calendly]').addEventListener('click', openCalendly);
+    }
+
+    function openCalendly() {
+      const params = new URLSearchParams();
+      if (state.answers.nome?.value) params.set('name', state.answers.nome.value);
+      if (state.answers.whatsapp?.value) params.set('a1', state.answers.whatsapp.value);
+      const url = `${CALENDLY_URL}?${params.toString()}`;
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+
+    function openQuiz() {
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+      if (!state.started) {
+        state.started = true;
+        trackPixel('QuizHarmonizacaoIniciado');
+      }
+      renderStep();
+    }
+
+    function closeQuiz() {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+      setStatus('');
+    }
+
+    function bindCloseButtons() {
+      document.querySelectorAll('[data-close-quiz]').forEach(button => {
+        button.addEventListener('click', closeQuiz);
+      });
+    }
+
+    document.querySelectorAll('[data-open-quiz]').forEach(button => {
+      button.addEventListener('click', openQuiz);
+    });
+    bindCloseButtons();
+
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && modal.classList.contains('open')) {
+        closeQuiz();
+      }
+
+      if (event.key === 'Tab' && modal.classList.contains('open')) {
+        const focusable = modal.querySelectorAll('button, input, [href], [tabindex]:not([tabindex="-1"])');
+        const items = Array.from(focusable).filter(item => !item.disabled && item.offsetParent !== null);
+        if (!items.length) return;
+        const first = items[0];
+        const last = items[items.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+    });
+
+    window.addEventListener('scroll', () => {
+      const showSticky = window.scrollY > 560;
+      stickyCta.classList.toggle('visible', showSticky);
+      stickyCta.setAttribute('aria-hidden', String(!showSticky));
+    }, { passive: true });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(element => observer.observe(element));
+  </script>
+</body>
+</html>
